@@ -11,9 +11,11 @@ public:
 	void Init() override;
 	void Loop() override;
 
-	HWND GetHandle() { return m_hwnd; }
+	static HWND GetHandle() { return m_windowWin->m_hwnd; }
 
 private:
+
+	static Window_Win* m_windowWin;
 
 	// Callback function
 	static LRESULT CALLBACK WindowProc(HWND _hwnd, UINT _uMsg, WPARAM _wParam, LPARAM _lParam);

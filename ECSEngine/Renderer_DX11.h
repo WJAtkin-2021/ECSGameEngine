@@ -10,13 +10,20 @@ class Renderer_DX11 : public Renderer
 {
 public:
 	Renderer_DX11();
-	~Renderer_DX11();
+	~Renderer_DX11() override;
 
+	// Getters / Setters
+	static Microsoft::WRL::ComPtr<ID3D11DeviceContext> GetImmediateContext() { return m_renderDx11->m_immediateContext; }
+	static Microsoft::WRL::ComPtr<ID3D11Device> GetD3DDevice() { return m_renderDx11->m_d3dDevice; }
+	void SetWindowsHandle(HWND _winHand) { m_winHandle = _winHand; }
+	
 	void InitGraphicsAPI(int _screenWidth, int _screenHeight) override;
 	void DrawScene() override;
-	void SetWindowsHandle(HWND _winHand) { m_winHandle = _winHand; }
+
 
 private:
+
+	static Renderer_DX11* m_renderDx11;
 
 	// Functions for setting up DirectX 11
 	void CreateDeviceAndContext();
@@ -30,7 +37,6 @@ private:
 
 	const float m_backBufferColour[4] = { 73.0f / 255.0f, 180.0f / 255.0f, 204.0f / 255.0f, 1.0f };
 	UINT m_4xMsaaQuality = 0;
-
 	HWND m_winHandle = NULL;
 
 	Microsoft::WRL::ComPtr<ID3D11Device> m_d3dDevice;

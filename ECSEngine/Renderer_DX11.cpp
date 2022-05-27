@@ -1,14 +1,35 @@
 #include <stdexcept>
 #include "Renderer_DX11.h"
+#include "UI_DX.h"
+
+Renderer_DX11* Renderer_DX11::m_renderDx11 = nullptr;
 
 Renderer_DX11::Renderer_DX11()
 {
-
+	m_renderDx11 = this;
 }
 
 Renderer_DX11::~Renderer_DX11()
 {
-
+	// Release com interfaces
+	if (m_d3dDevice)
+		m_d3dDevice.Reset();
+	if (m_immediateContext)
+		m_immediateContext.Reset();
+	if (m_swapChain)
+		m_swapChain.Reset();
+	if (m_renderTargetView)
+		m_renderTargetView.Reset();
+	if (m_depthStencilBuffer)
+		m_depthStencilBuffer.Reset();
+	if (m_depthStencilView)
+		m_depthStencilView.Reset();
+	if (m_rasterSolidState)
+		m_rasterSolidState.Reset();
+	if (m_rasterWireframeState)
+		m_rasterWireframeState.Reset();
+	if (m_depthStenStateNormal)
+		m_depthStenStateNormal.Reset();
 }
 
 void Renderer_DX11::DrawScene()
@@ -25,6 +46,16 @@ void Renderer_DX11::DrawScene()
 
 	// Rebind the render target
 	m_immediateContext->OMSetRenderTargets(1, m_renderTargetView.GetAddressOf(), m_depthStencilView.Get());
+
+	// ******************** Main Draw Calls ********************
+
+
+
+	// *********************************************************
+
+	// Draw the UI
+	UI_DX* ui = dynamic_cast<UI_DX*>(UI::GetIU());
+	ui->DrawUI();
 
 	// Swap the buffers
 	m_swapChain->Present(0, 0);
@@ -46,6 +77,9 @@ void Renderer_DX11::InitGraphicsAPI(int _screenWidth, int _screenHeight)
 
 	// TEMP: Set the topology
 	m_immediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	// Setup ImGui
+	m_UI = dynamic_cast<UI*>(new UI_DX());
 }
 
 void Renderer_DX11::CreateDeviceAndContext()

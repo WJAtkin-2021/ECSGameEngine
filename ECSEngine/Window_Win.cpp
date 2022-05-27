@@ -1,7 +1,15 @@
+#include "imgui/backends/imgui_impl_win32.h"
 #include "Window_Win.h"
+
+// Forward declare message handler from imgui_impl_win32.cpp
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+Window_Win* Window_Win::m_windowWin = nullptr;
 
 Window_Win::Window_Win(int _screenWidth, int _screenHeight, HINSTANCE _hInstance, int _nCmdShow) : Window(_screenWidth, _screenHeight)
 {
+	m_windowWin = this;
+
 	// Register the window
 	const wchar_t className[] = L"ECSEngineWindow";
 
@@ -77,6 +85,10 @@ void Window_Win::Loop()
 
 LRESULT CALLBACK Window_Win::WindowProc(HWND _hwnd, UINT _uMsg, WPARAM _wParam, LPARAM _lParam)
 {
+	// Check if this message was meant for Dear ImGui
+	if (ImGui_ImplWin32_WndProcHandler(_hwnd, _uMsg, _wParam, _lParam))
+		return true;
+
 	switch (_uMsg)
 	{
 	case WM_DESTROY:

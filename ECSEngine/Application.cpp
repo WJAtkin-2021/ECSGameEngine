@@ -22,7 +22,7 @@ Application::Application(Window* _window, int _screenWidth, int _screenHeight)
 
 Application::~Application()
 {
-
+	delete m_renderer;
 }
 
 void Application::Init()
