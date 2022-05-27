@@ -4,10 +4,9 @@
 class Sandbox : public Application
 {
 public:
-	Sandbox(int _screenWidth, int _screenHight, HINSTANCE _hInstance);
+	Sandbox(int _screenWidth, int _screenHeight);
 	~Sandbox();
 
-protected:
-	int m_screenWidth;
-	int m_screenHight;
+	void Init() override;
+	void Loop() override;
 };

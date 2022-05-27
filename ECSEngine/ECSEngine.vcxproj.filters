@@ -2,8 +2,31 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Window.h">
+      <Filter>Platform Independent</Filter>
+    </ClInclude>
+    <ClInclude Include="Window_Win.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Window.cpp">
+      <Filter>Platform Independent</Filter>
+    </ClCompile>
+    <ClCompile Include="Window_Win.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Platform Independent">
+      <UniqueIdentifier>{e197bd5a-5c48-4e21-b4f2-21e7ccd2a89e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows">
+      <UniqueIdentifier>{f3bc7693-a9dd-4fdb-8baf-16e0216360e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX11">
+      <UniqueIdentifier>{57d2a582-c7c5-447f-b86d-7457d982915d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

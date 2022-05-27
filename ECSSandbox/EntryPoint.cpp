@@ -6,6 +6,7 @@
 #include <stdexcept>
 
 #include "Sandbox.h"
+#include "Window_Win.h"
 
 // Sandbox Settings
 const int SCREEN_WIDTH = 1280;
@@ -15,8 +16,16 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 {
 	try
 	{
-		// Create and run the sandbox application
-		Sandbox application(SCREEN_WIDTH, SCREEN_HEIGHT, hInstance);
+		// Create a window to render the application on
+		Window_Win winWindows(SCREEN_WIDTH, SCREEN_HEIGHT, hInstance, nCmdShow);
+		winWindows.Init();
+
+		// Create the sandbox application
+		Sandbox application(SCREEN_WIDTH, SCREEN_HEIGHT);
+		application.Init();
+
+		// Start up the message loop on the window
+		winWindows.Loop();
 	}
 	catch(std::exception ex) 
 	{ 
