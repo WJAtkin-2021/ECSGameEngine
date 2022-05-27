@@ -1,6 +1,8 @@
 # Build results
+Debug/
 Debug - DirectX/
 Debug - OpenGL/
+Release/
 Release - DirectX/
 Release - OpenGL/
 x64/
