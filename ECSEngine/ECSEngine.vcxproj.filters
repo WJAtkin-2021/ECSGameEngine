@@ -8,6 +8,12 @@
     <ClInclude Include="Window_Win.h">
       <Filter>Windows</Filter>
     </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Platform Independent</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer_DX11.h">
+      <Filter>DirectX11</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -16,6 +22,12 @@
     </ClCompile>
     <ClCompile Include="Window_Win.cpp">
       <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Platform Independent</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer_DX11.cpp">
+      <Filter>DirectX11</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

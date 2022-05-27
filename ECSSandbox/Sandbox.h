@@ -4,9 +4,9 @@
 class Sandbox : public Application
 {
 public:
-	Sandbox(int _screenWidth, int _screenHeight);
+	Sandbox(Window* _window, int _screenWidth, int _screenHeight);
 	~Sandbox();
 
 	void Init() override;
-	void Loop() override;
+	void Update() override;
 };

@@ -1,6 +1,6 @@
 #include "Sandbox.h"
 
-Sandbox::Sandbox(int _screenWidth, int _screenHeight) : Application(_screenWidth, _screenHeight)
+Sandbox::Sandbox(Window* _window, int _screenWidth, int _screenHeight) : Application(_window, _screenWidth, _screenHeight)
 {
 
 }
@@ -15,7 +15,10 @@ void Sandbox::Init()
 
 }
 
-void Sandbox::Loop()
+void Sandbox::Update()
 {
 
+
+	// Call the Update on the base class
+	Application::Update();
 }

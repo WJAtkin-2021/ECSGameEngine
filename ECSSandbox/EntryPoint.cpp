@@ -21,7 +21,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 		winWindows.Init();
 
 		// Create the sandbox application
-		Sandbox application(SCREEN_WIDTH, SCREEN_HEIGHT);
+		Sandbox application(&winWindows, SCREEN_WIDTH, SCREEN_HEIGHT);
 		application.Init();
 
 		// Start up the message loop on the window

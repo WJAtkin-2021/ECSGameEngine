@@ -1,15 +1,20 @@
 #pragma once
+#include "Renderer.h"
 
+class Window;
 class Application
 {
 public:
-	Application(int _screenWidth, int _screenHeight);
+	Application(Window* _window, int _screenWidth, int _screenHeight);
 	~Application();
 
 	virtual void Init();
-	virtual void Loop();
+	virtual void Update();
 
 protected:
 	int m_screenWidth;
 	int m_screenHeight;
+
+	Window* m_window;
+	Renderer* m_renderer;
 };

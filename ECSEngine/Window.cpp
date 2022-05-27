@@ -13,5 +13,6 @@ Window::~Window()
 
 void Window::Loop()
 {
-
+	// Call the loop on the application class
+	m_application->Update();
 }

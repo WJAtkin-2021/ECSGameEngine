@@ -11,6 +11,8 @@ public:
 	void Init() override;
 	void Loop() override;
 
+	HWND GetHandle() { return m_hwnd; }
+
 private:
 
 	// Callback function
