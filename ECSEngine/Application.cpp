@@ -27,7 +27,23 @@ Application::~Application()
 
 void Application::Init()
 {
+	// Load in the shaders
+#ifdef BUILD_DX_11
+	ResourceManager::GetShader(ShaderType::Vertex_HLSL);
+	//ResourceManager::GetShader(ShaderType::VertexSkyBox_HLSL);
+	ResourceManager::GetShader(ShaderType::PixelFallBack_HLSL);
+	//ResourceManager::GetShader(ShaderType::PixelTextured_HLSL);
+	//ResourceManager::GetShader(ShaderType::PixelSkyBox_HLSL);
+#elif BUILD_OpenGL
+	ResourceManager::GetShader(ShaderType::Vertex_GLSL);
+	ResourceManager::GetShader(ShaderType::VertexSkyBox_GLSL);
+	ResourceManager::GetShader(ShaderType::FragmentFallBack_GLSL);
+	ResourceManager::GetShader(ShaderType::FragmentTextured_GLSL);
+	ResourceManager::GetShader(ShaderType::FragmentSkyBox_GLSL);
+#endif // BUILD_DX_11
 
+	// Set the screen size on the camera
+	m_camera.SetWindowSize(m_screenWidth, m_screenHeight);
 }
 
 void Application::Update()

@@ -1,4 +1,6 @@
 #pragma once
+#ifdef BUILD_DX_11
+
 #include <Windows.h>
 #include <wrl.h>
 #include <d3d11_1.h>
@@ -49,3 +51,5 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11RasterizerState> m_rasterWireframeState;
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> m_depthStenStateNormal;
 };
+
+#endif // BUILD_DX_11

@@ -53,7 +53,7 @@
     <ClInclude Include="imgui\imstb_truetype.h">
       <Filter>3rdParty\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="UI_DX.h">
+    <ClInclude Include="UI_DX11.h">
       <Filter>DirectX11</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h" />
@@ -95,6 +95,24 @@
     </ClInclude>
     <ClInclude Include="GPUBuffers_DX11.h">
       <Filter>DirectX11</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Platform Independent</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader_DX11.h">
+      <Filter>DirectX11</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBuffer.h">
+      <Filter>Platform Independent</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBufferData.h">
+      <Filter>DirectX11</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBuffer_DX11.h">
+      <Filter>DirectX11</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Platform Independent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -144,7 +162,7 @@
     <ClCompile Include="imgui\imgui_widgets.cpp">
       <Filter>3rdParty\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="UI_DX.cpp">
+    <ClCompile Include="UI_DX11.cpp">
       <Filter>DirectX11</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp" />
@@ -183,6 +201,21 @@
     </ClCompile>
     <ClCompile Include="GPUBuffers_DX11.cpp">
       <Filter>DirectX11</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Platform Independent</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader_DX11.cpp">
+      <Filter>DirectX11</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantBuffer.cpp">
+      <Filter>Platform Independent</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantBuffer_DX11.cpp">
+      <Filter>DirectX11</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Platform Independent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

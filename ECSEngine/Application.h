@@ -2,6 +2,7 @@
 #include "Renderer.h"
 #include "SceneManager.h"
 #include "ResourceManager.h"
+#include "Camera.h"
 
 class Window;
 class Application
@@ -24,4 +25,7 @@ protected:
 	// Manager classes
 	SceneManager m_sceneManager;
 	ResourceManager m_resourceManager;
+
+	// Scene camera
+	Camera m_camera;
 };

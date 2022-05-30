@@ -16,6 +16,9 @@ void Transform::InitTransform()
 {
 	// Create an initial world matrix
 	m_world = DirectX::XMMatrixIdentity();
+
+	// Set the scale
+	m_scale = Vector3D(1.0f, 1.0f, 1.0f);
 }
 
 Transform::~Transform() { }

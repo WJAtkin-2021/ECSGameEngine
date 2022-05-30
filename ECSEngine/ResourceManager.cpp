@@ -49,3 +49,17 @@ Mesh& ResourceManager::GetMesh(const PrimitiveTypes _primativeType)
 
 	return m_instance->m_meshMap[key];
 }
+
+std::shared_ptr<Shader> ResourceManager::GetShader(const ShaderType _shaderKey)
+{
+	// Firstly search for the shader in the map
+	auto search = m_instance->m_shaderMap.find(_shaderKey);
+	if (search == m_instance->m_shaderMap.end())
+	{
+		// If not found then load in a new shader
+		m_instance->m_shaderMap[_shaderKey] = Shader::FactoryCreateShader();
+		m_instance->m_shaderMap[_shaderKey]->LoadShader(_shaderKey);
+	}
+
+	return m_instance->m_shaderMap[_shaderKey];
+}

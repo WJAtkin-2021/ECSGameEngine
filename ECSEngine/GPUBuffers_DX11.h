@@ -1,4 +1,6 @@
 #pragma once
+#ifdef BUILD_DX_11
+
 #include <wrl.h>
 #include <d3d11_1.h>
 #include "GPUBuffers.h"
@@ -18,3 +20,5 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_vertexBuffer;
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_indexBuffer;
 };
+
+#endif // BUILD_DX_11

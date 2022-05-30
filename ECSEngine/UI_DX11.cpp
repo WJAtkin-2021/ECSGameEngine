@@ -1,11 +1,13 @@
-#include "UI_DX.h"
+#ifdef BUILD_DX_11
+
+#include "UI_DX11.h"
 #include "Renderer_DX11.h"
 #include "Window_Win.h"
 #include "imgui/imgui.h"
 #include "imgui/backends/imgui_impl_win32.h"
 #include "imgui/backends/imgui_impl_dx11.h"
 
-UI_DX::UI_DX()
+UI_DX11::UI_DX11()
 {
     // Get the context
     m_immidiateContext = Renderer_DX11::GetImmediateContext();
@@ -21,7 +23,7 @@ UI_DX::UI_DX()
     device.Reset();
 }
 
-UI_DX::~UI_DX()
+UI_DX11::~UI_DX11()
 {
     ImGui_ImplDX11_Shutdown();
     ImGui_ImplWin32_Shutdown();
@@ -30,7 +32,7 @@ UI_DX::~UI_DX()
         m_immidiateContext.Reset();
 }
 
-void UI_DX::DrawUI()
+void UI_DX11::DrawUI()
 {
     // Start the ImGui frame
     ImGui_ImplDX11_NewFrame();
@@ -49,3 +51,5 @@ void UI_DX::DrawUI()
         ImGui::RenderPlatformWindowsDefault();
     }
 }
+
+#endif // BUILD_DX_11

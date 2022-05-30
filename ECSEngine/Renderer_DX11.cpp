@@ -1,6 +1,14 @@
+#ifdef BUILD_DX_11
+
 #include <stdexcept>
 #include "Renderer_DX11.h"
-#include "UI_DX.h"
+#include "UI_DX11.h"
+#include "ConstantBuffer_DX11.h"
+#include "SceneManager.h"
+#include "Mesh.h"
+#include "Camera.h"
+#include "Shader.h"
+#include "ResourceManager.h"
 
 Renderer_DX11* Renderer_DX11::m_renderDx11 = nullptr;
 
@@ -47,14 +55,53 @@ void Renderer_DX11::DrawScene()
 	// Rebind the render target
 	m_immediateContext->OMSetRenderTargets(1, m_renderTargetView.GetAddressOf(), m_depthStencilView.Get());
 
+	// Set the vertex shader
+	ResourceManager::GetShader(ShaderType::Vertex_HLSL)->SetVertexShaderForDrawCall();
+
 	// ******************** Main Draw Calls ********************
 
+	// Grab the camera
+	Camera* camera = Camera::GetCamera();
 
+	// Set the per frame variables in the constant buffer
+	m_constantBuffer->SetViewMat(camera->GetViewMatrix());
+	m_constantBuffer->SetProjMat(camera->GetProjMatrix());
+	m_constantBuffer->SetCameraPosition(camera->GetTransform().Position());
+
+	// Grab the entity list and loop through each entity
+	std::vector<Entity*> entities = SceneManager::GetEntites();
+	for (size_t i = 0; i < entities.size(); i++)
+	{
+		// Check if a render component is in use
+		if (entities[i]->HasComponent<RenderComponent>())
+		{
+			RenderComponent* rc = entities[i]->GetComponent<RenderComponent>();
+			// Check if it has a mesh to render
+			Mesh* mesh = rc->GetMesh();
+			if (mesh != nullptr)
+			{
+				// Setup for the draw call
+				// Set the mesh index and vertex buffers
+				mesh->SetBuffersForDrawCall();
+
+				// Set the constant buffer
+				m_constantBuffer->SetWorldMat(entities[i]->GetComponent<Transform>()->GetWorldMatrix());
+				m_constantBuffer->SetEntityColor(Vector3D(1.0f, 0.0f, 1.0f));
+				m_constantBuffer->SetBufferForDrawCall();
+
+				// Set the correct pixel shader
+				ResourceManager::GetShader(ShaderType::PixelFallBack_HLSL)->SetPixelShaderForDrawCall();
+
+				// Draw call
+				m_immediateContext->DrawIndexed(mesh->GetNumberOfIndicies(), 0, 0);
+			}
+		}
+	}
 
 	// *********************************************************
 
 	// Draw the UI
-	UI_DX* ui = dynamic_cast<UI_DX*>(UI::GetIU());
+	UI_DX11* ui = dynamic_cast<UI_DX11*>(UI::GetIU());
 	ui->DrawUI();
 
 	// Swap the buffers
@@ -79,7 +126,7 @@ void Renderer_DX11::InitGraphicsAPI(int _screenWidth, int _screenHeight)
 	m_immediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// Setup ImGui
-	m_UI = dynamic_cast<UI*>(new UI_DX());
+	m_UI = dynamic_cast<UI*>(new UI_DX11());
 }
 
 void Renderer_DX11::CreateDeviceAndContext()
@@ -232,7 +279,7 @@ void Renderer_DX11::SetViewPort()
 
 void Renderer_DX11::CreateConstantBuffer()
 {
-
+	m_constantBuffer = std::shared_ptr<ConstantBuffer>(dynamic_cast<ConstantBuffer*>(new ConstantBuffer_DX11()));
 }
 
 void Renderer_DX11::CreateRasterState()
@@ -268,3 +315,5 @@ void Renderer_DX11::CreateRasterState()
 	// Set the default raster state
 	m_immediateContext->RSSetState(m_rasterSolidState.Get());
 }
+
+#endif // BUILD_DX_11
