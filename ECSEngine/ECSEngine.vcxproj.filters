@@ -78,6 +78,24 @@
     <ClInclude Include="StringHelper.h">
       <Filter>Utility</Filter>
     </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Platform Independent</Filter>
+    </ClInclude>
+    <ClInclude Include="PrimativeTypes.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Platform Independent</Filter>
+    </ClInclude>
+    <ClInclude Include="GPUBuffers.h">
+      <Filter>Platform Independent</Filter>
+    </ClInclude>
+    <ClInclude Include="GPUBuffers_DX11.h">
+      <Filter>DirectX11</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -151,6 +169,21 @@
     <ClCompile Include="StringHelper.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Platform Independent</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertex.cpp">
+      <Filter>Platform Independent</Filter>
+    </ClCompile>
+    <ClCompile Include="GPUBuffers.cpp">
+      <Filter>Platform Independent</Filter>
+    </ClCompile>
+    <ClCompile Include="GPUBuffers_DX11.cpp">
+      <Filter>DirectX11</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Platform Independent">
@@ -180,5 +213,8 @@
     <Filter Include="Utility">
       <UniqueIdentifier>{abd748be-75b5-410f-9c65-ccdc4a76651d}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 #pragma once
 #include "Renderer.h"
 #include "SceneManager.h"
+#include "ResourceManager.h"
 
 class Window;
 class Application
@@ -22,4 +23,5 @@ protected:
 
 	// Manager classes
 	SceneManager m_sceneManager;
+	ResourceManager m_resourceManager;
 };

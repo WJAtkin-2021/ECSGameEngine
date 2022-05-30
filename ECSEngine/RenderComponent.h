@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 
+class Mesh;
 class RenderComponent : public Component
 {
 public:
@@ -8,8 +9,17 @@ public:
 	RenderComponent(Entity* _entity, int _compId);
 	~RenderComponent();
 
+	void Update() override {};
+	void StepPhysics() override {};
+	bool DrawImGuiInterface() override;
+
+	// Setters
+	void SetMesh(Mesh& _mesh) { m_mesh = &_mesh; }
+
+	// Getters
 	RenderComponent* GetThis() override { return this; }
-	void Update() override = 0;
-	void StepPhysics() override = 0;
-	bool DrawImGuiInterface() override = 0;
+	Mesh* GetMesh() { return m_mesh; }
+
+private:
+	Mesh* m_mesh = nullptr;
 };

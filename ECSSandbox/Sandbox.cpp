@@ -19,7 +19,8 @@ void Sandbox::Init()
 
 	// Create the test entity
 	Entity* testCube1 = SceneManager::CreateEntity();
-	
+	RenderComponent* testRender = testCube1->AddComponent<RenderComponent>();
+	testRender->SetMesh(ResourceManager::GetMesh(PrimitiveTypes::Cube));
 }
 
 void Sandbox::Update()
