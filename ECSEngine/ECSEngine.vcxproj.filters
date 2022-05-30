@@ -56,6 +56,16 @@
     <ClInclude Include="UI_DX.h">
       <Filter>DirectX11</Filter>
     </ClInclude>
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="Transform.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -107,6 +117,16 @@
     <ClCompile Include="UI_DX.cpp">
       <Filter>DirectX11</Filter>
     </ClCompile>
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Transform.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Platform Independent">
@@ -126,6 +146,9 @@
     </Filter>
     <Filter Include="3rdParty\ImGui">
       <UniqueIdentifier>{6f5df224-f97e-4f7c-8738-988535a7e3ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Managers">
+      <UniqueIdentifier>{f370b339-e454-437d-ae71-79583fc2fc79}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

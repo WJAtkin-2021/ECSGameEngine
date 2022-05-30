@@ -86,7 +86,9 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="ApplicationUI.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentLoaderEngine.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="imgui\backends\imgui_impl_dx11.h" />
     <ClInclude Include="imgui\backends\imgui_impl_win32.h" />
     <ClInclude Include="imgui\imconfig.h" />
@@ -98,7 +100,9 @@
     <ClInclude Include="imgui\misc\cpp\imgui_stdlib.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Renderer_DX11.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Time.h" />
+    <ClInclude Include="Transform.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UI_DX.h" />
     <ClInclude Include="Window.h" />
@@ -106,7 +110,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentLoaderEngine.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="imgui\backends\imgui_impl_dx11.cpp" />
     <ClCompile Include="imgui\backends\imgui_impl_win32.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
@@ -117,7 +123,9 @@
     <ClCompile Include="imgui\misc\cpp\imgui_stdlib.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Renderer_DX11.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Time.cpp" />
+    <ClCompile Include="Transform.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UI_DX.cpp" />
     <ClCompile Include="Window.cpp" />

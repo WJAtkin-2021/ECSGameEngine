@@ -1,5 +1,6 @@
 #pragma once
 #include "Renderer.h"
+#include "SceneManager.h"
 
 class Window;
 class Application
@@ -15,6 +16,10 @@ protected:
 	int m_screenWidth;
 	int m_screenHeight;
 
+	// Platform independent interfaces
 	Window* m_window;
 	Renderer* m_renderer;
+
+	// Manager classes
+	SceneManager m_sceneManager;
 };
