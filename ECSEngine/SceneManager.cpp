@@ -20,9 +20,14 @@ SceneManager::~SceneManager()
 // Returns an empty entity
 Entity* SceneManager::CreateEntity()
 {
+	// Create and add to the list
 	Entity* newEntity = new Entity(m_instance->m_currentFreeId);
 	m_instance->m_currentFreeId++;
 	m_instance->m_entities.push_back(newEntity);
+
+	// Add the transform as this is a requirement for all entities in this engine
+	newEntity->AddComponent<Transform>();
+
 	return newEntity;
 }
 

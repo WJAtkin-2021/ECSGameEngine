@@ -1,14 +1,22 @@
 #pragma once
 
+// For rendering the UI of each component
+#include "imgui/imgui.h"
+#include "imgui/misc/cpp/imgui_stdlib.h"
+
 class Entity;
 class Component
 {
 public:
-	virtual Component* GetThis() = 0;
 	virtual ~Component() = default;
 
 	int GetCompId() { return m_componentId; }
 	Entity& GetEntity() { return *m_entity; }
+
+	virtual Component* GetThis() = 0;
+	virtual void Update() = 0;
+	virtual void StepPhysics() = 0;
+	virtual bool DrawImGuiInterface() = 0;
 
 protected:
 	Component() = default;

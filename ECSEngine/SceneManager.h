@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
+#include "Entity.h"
 
-class Entity;
 class SceneManager
 {
 public:

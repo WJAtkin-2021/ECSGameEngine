@@ -19,6 +19,7 @@ void Sandbox::Init()
 
 	// Create the test entity
 	Entity* testCube1 = SceneManager::CreateEntity();
+	
 }
 
 void Sandbox::Update()
