@@ -15,7 +15,10 @@ public:
 	Mesh(const PrimitiveTypes _primitiveType);
 	~Mesh();
 
+	// Setters
 	void SetBuffersForDrawCall();
+
+	// Getters
 	int GetNumberOfIndicies();
 	PrimitiveTypes GetPrimativeType() { return m_primativeType; }
 	std::string GetMeshFilePath() { return m_filePath; }

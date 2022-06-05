@@ -1,4 +1,5 @@
 #include "SceneManager.h"
+#include "ResourceManager.h"
 #include "Entity.h"
 
 SceneManager* SceneManager::m_instance = nullptr;
@@ -31,6 +32,30 @@ Entity* SceneManager::CreateEntity()
 	return newEntity;
 }
 
+Entity* SceneManager::CreatePrimative(PrimitiveTypes _primativeType)
+{
+	Entity* newEntity = CreateEntity();
+	RenderComponent* rc = newEntity->AddComponent<RenderComponent>();
+
+	switch (_primativeType)
+	{
+	case PrimitiveTypes::INVALID:
+		throw std::runtime_error("INVALID Primitive Type");
+		break;
+	case PrimitiveTypes::Cube:
+		rc->SetMesh(ResourceManager::GetMesh(PrimitiveTypes::Cube));
+		break;
+	case PrimitiveTypes::Sphere:
+		throw std::runtime_error("INVALID Primitive Type");
+		break;
+	default:
+		throw std::runtime_error("INVALID Primitive Type");
+		break;
+	}
+
+	return newEntity;
+}
+
 // Finds an entity via pointer and deletes + removes from list
 void SceneManager::RemoveEntity(Entity* _removee)
 {
@@ -40,6 +65,7 @@ void SceneManager::RemoveEntity(Entity* _removee)
 		{
 			delete m_instance->m_entities[i];
 			m_instance->m_entities.erase(m_instance->m_entities.begin() + i);
+			return;
 		}
 	}
 }

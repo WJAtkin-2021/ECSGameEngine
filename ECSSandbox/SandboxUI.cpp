@@ -1,5 +1,6 @@
-#include "SandboxUI.h"
 #include "imgui/imgui.h"
+#include "SandboxUI.h"
+#include "SceneManager.h"
 
 SandboxUI::SandboxUI()
 {
@@ -42,8 +43,34 @@ void SandboxUI::DrawScenehierarchy()
     ImGui::Begin("Scene Hierarchy");
     ImGui::BeginChild("Scrolling");
 
-    // TODO: Loop through each entity and display the info
-    
+    // Loop through each entity and display the info
+    std::vector<Entity*> entities = SceneManager::GetEntites();
+    for (int i = 0; i < entities.size(); i++)
+    {
+        DrawEnityInHierarchy(entities[i]);
+    }
+
+    ImGui::Button("Add Entity");
+    if (ImGui::BeginPopupContextItem()) // <-- use last item id as popup id
+    {
+        ImGui::Text("Select Mesh");
+        bool selected = false;
+        ImGui::Selectable("Cube", &selected);
+        if (selected)
+        {
+            // Create cube
+            SceneManager::CreatePrimative(PrimitiveTypes::Cube);
+            ImGui::CloseCurrentPopup();
+            selected = false;
+        }
+
+        if (ImGui::Button("Close"))
+            ImGui::CloseCurrentPopup();
+        ImGui::EndPopup();
+    }
+    if (ImGui::IsItemHovered())
+        ImGui::SetTooltip("Right-click to add entity");
+
     ImGui::EndChild();
     ImGui::End();
 }
@@ -54,7 +81,34 @@ void SandboxUI::DrawInspector()
     ImGui::Begin("Inspector");
     ImGui::BeginChild("Scrolling");
 
+    // Get information on the current entity
+    if (m_selectedEntity != nullptr)
+    {
+        const bool entityDeleted = m_selectedEntity->DrawImGuiInterface();
+        if (entityDeleted)
+            m_selectedEntity = nullptr;
+    }
+    else
+    {
+        // Show default text
+        ImGui::Text("No Entity Selected");
+    }
+
     // TODO: Show info for selected entity
     ImGui::EndChild();
     ImGui::End();
+}
+
+void SandboxUI::DrawEnityInHierarchy(Entity* _entity)
+{
+    // Text to display
+    std::string text = std::to_string(_entity->GetId());
+    text += ": " + _entity->GetName();
+
+    bool selected = false;
+    ImGui::Selectable(text.c_str(), &selected);
+    if (selected)
+    {
+        m_selectedEntity = _entity;
+    }
 }

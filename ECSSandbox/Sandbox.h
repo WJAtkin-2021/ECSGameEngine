@@ -9,6 +9,4 @@ public:
 
 	void Init() override;
 	void Update() override;
-
-	Entity* testCube1 = nullptr;
 };

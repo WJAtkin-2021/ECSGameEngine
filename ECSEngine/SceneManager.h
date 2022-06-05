@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "Entity.h"
+#include "PrimativeTypes.h"
 
 class SceneManager
 {
@@ -10,6 +11,7 @@ public:
 
 	// For entity management
 	static Entity* CreateEntity();
+	static Entity* CreatePrimative(PrimitiveTypes _primativeType);
 	static void RemoveEntity(Entity* _removee);
 
 	// Returns a list of all entities

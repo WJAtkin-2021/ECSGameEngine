@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include "PrimativeTypes.h"
 
 class Mesh;
 class RenderComponent : public Component
@@ -14,7 +15,8 @@ public:
 	bool DrawImGuiInterface() override;
 
 	// Setters
-	void SetMesh(Mesh& _mesh) { m_mesh = &_mesh; }
+	void SetMesh(Mesh& _mesh);
+	void RemoveMesh();
 
 	// Getters
 	RenderComponent* GetThis() override { return this; }
@@ -22,4 +24,7 @@ public:
 
 private:
 	Mesh* m_mesh = nullptr;
+
+	PrimitiveTypes m_meshPrimative = PrimitiveTypes::INVALID;
+	std::string m_meshFilePath = "";
 };

@@ -86,7 +86,7 @@ void Renderer_DX11::DrawScene()
 
 				// Set the constant buffer
 				m_constantBuffer->SetWorldMat(entities[i]->GetComponent<Transform>()->GetWorldMatrix());
-				m_constantBuffer->SetEntityColor(Vector3D(1.0f, 0.0f, 1.0f));
+				m_constantBuffer->SetEntityColor(entities[i]->GetColor());
 				m_constantBuffer->SetBufferForDrawCall();
 
 				// Set the correct pixel shader

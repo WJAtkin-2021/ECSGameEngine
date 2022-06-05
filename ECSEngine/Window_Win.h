@@ -10,6 +10,7 @@ public:
 
 	void Init() override;
 	void Loop() override;
+	std::string GetMeshFile() override;
 
 	static HWND GetHandle() { return m_windowWin->m_hwnd; }
 

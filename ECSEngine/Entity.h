@@ -15,8 +15,15 @@ public:
 	Entity(int _id);
 	~Entity();
 
+	// Getters
 	std::string GetName() { return m_name; }
 	int GetId() { return m_id; }
+	Vector3D GetColor() { return m_color; }
+
+	// Setters
+	void SetName(std::string _name) { m_name = _name; }
+
+	bool DrawImGuiInterface();
 
 	// Return the first instance of this component
 	template<typename T>
@@ -58,6 +65,8 @@ public:
 	}
 
 private:
+
+	void DeleteComponent(int _compId);
 
 	// Id and name for the entity
 	int m_id = -1;

@@ -24,17 +24,15 @@ void Sandbox::Init()
 	m_camera.GetTransform().SetPosition(Vector3D(0.0f, 1.0f, -10.0f));
 
 	// Create the test entity
-	testCube1 = SceneManager::CreateEntity();
+	Entity* testCube1 = SceneManager::CreateEntity();
 	testCube1->GetComponent<Transform>()->SetPosition(Vector3D(0.0f, 0.0f, 0.0f));
+	testCube1->SetName("Test Cube");
 	RenderComponent* testRender = testCube1->AddComponent<RenderComponent>();
 	testRender->SetMesh(ResourceManager::GetMesh(PrimitiveTypes::Cube));
 }
 
 void Sandbox::Update()
 {
-	// Rotate the cube
-	testCube1->GetComponent<Transform>()->RotateY(0.01f);
-
 	// Call the Update on the base class
 	Application::Update();
 }

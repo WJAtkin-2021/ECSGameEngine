@@ -1,3 +1,5 @@
+#include <filesystem>
+#include <iostream>
 #include "imgui/backends/imgui_impl_win32.h"
 #include "Window_Win.h"
 
@@ -81,6 +83,34 @@ void Window_Win::Loop()
 			Window::Loop();
 		}
 	}
+}
+
+std::string Window_Win::GetMeshFile()
+{
+	WCHAR szPath[MAX_PATH] = {};
+
+	OPENFILENAME ofn = { sizeof(ofn) };
+	ofn.hwndOwner = m_hwnd;
+	ofn.lpstrFilter = L"OBJ Files (*.obj)\0*.obj\0";
+	ofn.lpstrFile = szPath;
+	ofn.nMaxFile = ARRAYSIZE(szPath);
+	ofn.Flags = OFN_NOCHANGEDIR;
+
+	const BOOL fOk = GetOpenFileName(&ofn);
+	std::string relativePath;
+	if (fOk)
+	{
+		// Decompose the path into a relative path
+		TCHAR NPath[MAX_PATH];
+		GetCurrentDirectory(MAX_PATH, NPath);
+		std::filesystem::current_path(NPath);
+		const std::filesystem::path filePath = std::filesystem::path(szPath);
+		relativePath = std::filesystem::relative(filePath).generic_string();
+	}
+
+	// TOD: Reset the keys as the window lost focus
+	//UserInput::ResetKeyPresses();
+	return relativePath;
 }
 
 LRESULT CALLBACK Window_Win::WindowProc(HWND _hwnd, UINT _uMsg, WPARAM _wParam, LPARAM _lParam)

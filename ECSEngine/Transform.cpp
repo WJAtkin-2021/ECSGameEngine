@@ -130,36 +130,36 @@ void Transform::MoveViaLocalAxis(const float _moveAmount, const DirectX::XMVECTO
 
 bool Transform::DrawImGuiInterface()
 {
-	//std::string headerTitle = std::to_string(GetCompId()) + ": Transform";
-	//if (ImGui::CollapsingHeader(headerTitle.c_str(), ImGuiTreeNodeFlags_DefaultOpen))
-	//{
-	//	using namespace StringHelper;
-	//
-	//	// Position
-	//	float vec3Pos[3] = { m_position.m_x, m_position.m_y, m_position.m_z };
-	//	ImGui::Text("Position:");
-	//	ImGui::SameLine(75.0f);
-	//	ImGui::DragFloat3(GenerateImGuiHash(GetCompId(), 0).c_str(), vec3Pos, 0.01f, -1000.0f, 1000.0f, "%.2f", ImGuiSliderFlags_NoRoundToFormat);
-	//	m_position = Vector3D(vec3Pos[0], vec3Pos[1], vec3Pos[2]);
-	//	// Rotation
-	//	float vec3Rot[3] = { m_rotation.m_x, m_rotation.m_y, m_rotation.m_z };
-	//	ImGui::Text("Rotation:");
-	//	ImGui::SameLine(75.0f);
-	//	ImGui::DragFloat3(GenerateImGuiHash(GetCompId(), 1).c_str(), vec3Rot, 0.01f, -1000.0f, 1000.0f, "%.2f", ImGuiSliderFlags_NoRoundToFormat);
-	//	m_rotation = Vector3D(vec3Rot[0], vec3Rot[1], vec3Rot[2]);
-	//	// Scale
-	//	float vec3Scale[3] = { m_scale.m_x, m_scale.m_y, m_scale.m_z };
-	//	ImGui::Text("Scale:");
-	//	ImGui::SameLine(75.0f);
-	//	ImGui::DragFloat3(GenerateImGuiHash(GetCompId(), 2).c_str(), vec3Scale, 0.01f, -1000.0f, 1000.0f, "%.2f", ImGuiSliderFlags_NoRoundToFormat);
-	//	m_scale = Vector3D(vec3Scale[0], vec3Scale[1], vec3Scale[2]);
-	//
-	//	// Recalc world matrix as we may be editing the transform
-	//	RecalculateWorldMat();
-	//
-	//	// Check to make sure rotations didn't overflow too
-	//	CheckRotations();
-	//}
+	std::string headerTitle = std::to_string(GetCompId()) + ": Transform";
+	if (ImGui::CollapsingHeader(headerTitle.c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		using namespace StringHelper;
+	
+		// Position
+		float vec3Pos[3] = { m_position.m_x, m_position.m_y, m_position.m_z };
+		ImGui::Text("Position:");
+		ImGui::SameLine(75.0f);
+		ImGui::DragFloat3(GenerateImGuiHash(GetCompId(), 0).c_str(), vec3Pos, 0.01f, -1000.0f, 1000.0f, "%.2f", ImGuiSliderFlags_NoRoundToFormat);
+		m_position = Vector3D(vec3Pos[0], vec3Pos[1], vec3Pos[2]);
+		// Rotation
+		float vec3Rot[3] = { m_rotation.m_x, m_rotation.m_y, m_rotation.m_z };
+		ImGui::Text("Rotation:");
+		ImGui::SameLine(75.0f);
+		ImGui::DragFloat3(GenerateImGuiHash(GetCompId(), 1).c_str(), vec3Rot, 0.01f, -1000.0f, 1000.0f, "%.2f", ImGuiSliderFlags_NoRoundToFormat);
+		m_rotation = Vector3D(vec3Rot[0], vec3Rot[1], vec3Rot[2]);
+		// Scale
+		float vec3Scale[3] = { m_scale.m_x, m_scale.m_y, m_scale.m_z };
+		ImGui::Text("Scale:");
+		ImGui::SameLine(75.0f);
+		ImGui::DragFloat3(GenerateImGuiHash(GetCompId(), 2).c_str(), vec3Scale, 0.01f, -1000.0f, 1000.0f, "%.2f", ImGuiSliderFlags_NoRoundToFormat);
+		m_scale = Vector3D(vec3Scale[0], vec3Scale[1], vec3Scale[2]);
+	
+		// Recalc world matrix as we may be editing the transform
+		RecalculateWorldMat();
+	
+		// Check to make sure rotations didn't overflow too
+		CheckRotations();
+	}
 
 	return true;
 }
