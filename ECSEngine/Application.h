@@ -3,6 +3,8 @@
 #include "SceneManager.h"
 #include "ResourceManager.h"
 #include "Camera.h"
+#include "UserInput.h"
+#include "Time.h"
 
 class Window;
 class Application
@@ -25,6 +27,10 @@ protected:
 	// Manager classes
 	SceneManager m_sceneManager;
 	ResourceManager m_resourceManager;
+
+	// Utility
+	UserInput m_userInput;
+	Time m_time;
 
 	// Scene camera
 	Camera m_camera;

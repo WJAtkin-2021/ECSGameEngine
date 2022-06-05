@@ -44,11 +44,17 @@ void Application::Init()
 
 	// Set the screen size on the camera
 	m_camera.SetWindowSize(m_screenWidth, m_screenHeight);
+
+	// Set the delta timer
+	m_time.Start();
 }
 
 void Application::Update()
 {
-
 	// Draw the scene
 	m_renderer->DrawScene();
+
+	// Tick the delta timer
+	m_time.TickFrameTime();
+	m_userInput.NextFrame();
 }

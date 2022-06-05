@@ -9,4 +9,10 @@ public:
 
 	void Init() override;
 	void Update() override;
+
+private:
+
+	void ProcessKeyInput();
+
+	float m_camSensitivity = 0.1f;
 };

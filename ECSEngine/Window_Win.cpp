@@ -2,6 +2,7 @@
 #include <iostream>
 #include "imgui/backends/imgui_impl_win32.h"
 #include "Window_Win.h"
+#include "UserInput.h"
 
 // Forward declare message handler from imgui_impl_win32.cpp
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -123,6 +124,29 @@ LRESULT CALLBACK Window_Win::WindowProc(HWND _hwnd, UINT _uMsg, WPARAM _wParam, 
 	{
 	case WM_DESTROY:
 		PostQuitMessage(0);
+		return 0;
+	case WM_LBUTTONDOWN:
+	case WM_MBUTTONDOWN:
+	case WM_RBUTTONDOWN:
+		UserInput::ProcMouseBtnDown(_wParam, _lParam);
+		return 0;
+	case WM_LBUTTONUP:
+		UserInput::ProcMouseBtnUp(1, _lParam);
+		return 0;
+	case WM_MBUTTONUP:
+	case WM_RBUTTONUP:
+		UserInput::ProcMouseBtnUp(2, _lParam);
+		return 0;
+	case WM_MOUSEMOVE:
+		UserInput::ProcMouseMove(_lParam);
+		return 0;
+
+	case WM_KEYDOWN:
+		UserInput::ProcKeyDown(_wParam);
+		return 0;
+
+	case WM_KEYUP:
+		UserInput::ProcKeyUp(_wParam);
 		return 0;
 	}
 

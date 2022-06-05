@@ -22,6 +22,7 @@ public:
 
 	// Setters
 	void SetName(std::string _name) { m_name = _name; }
+	void SetColor(Vector3D _newColor) { m_color = _newColor; }
 
 	bool DrawImGuiInterface();
 
