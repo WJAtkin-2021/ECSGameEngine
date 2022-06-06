@@ -8,6 +8,7 @@
 #include "Transform.h"
 #include "RenderComponent.h"
 #include "MaterialComponent.h"
+#include "LightComponent.h"
 
 class Entity
 {

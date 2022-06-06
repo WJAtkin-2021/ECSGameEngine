@@ -69,3 +69,38 @@ void SceneManager::RemoveEntity(Entity* _removee)
 		}
 	}
 }
+
+Light* SceneManager::CreateNewLight()
+{
+	Light* newLight = new Light();
+	m_instance->m_lights.push_back(newLight);
+	return newLight;
+}
+
+void SceneManager::RemoveLight(Light* _light)
+{
+	for (size_t i = 0; i < m_instance->m_lights.size(); i++)
+	{
+		if (m_instance->m_lights[i] == _light)
+		{
+			m_instance->m_lights.erase(m_instance->m_lights.begin() + i);
+			delete _light;
+			return;
+		}
+	}
+}
+
+const std::vector<Light*> SceneManager::GetEnabledLights() const
+{
+	std::vector<Light*> activeLights;
+
+	for (size_t i = 0; i < m_instance->m_lights.size(); i++)
+	{
+		if (m_instance->m_lights[i]->Enabled())
+		{
+			activeLights.push_back(m_instance->m_lights[i]);
+		}
+	}
+
+	return activeLights;
+}

@@ -34,7 +34,7 @@ public:
 	Texture* GetDiffuseTexture() const { return mp_diffuseTex; }
 	Texture* GetNormalMap() const { return mp_normalTex; }
 	Texture* GetEnvironmentMap() const { return mp_environmentTex; }
-	const MaterialProperties& GetMaterialProperties() const { return MaterialProperties(m_specularPower, m_metallic); }
+	const MaterialProperties GetMaterialProperties() const { return MaterialProperties(m_specularPower, m_metallic); }
 
 	// Internal
 	void Update() override {};

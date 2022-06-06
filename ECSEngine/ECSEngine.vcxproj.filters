@@ -138,6 +138,9 @@
     <ClInclude Include="Light.h">
       <Filter>Platform Independent</Filter>
     </ClInclude>
+    <ClInclude Include="LightComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -258,6 +261,9 @@
     </ClCompile>
     <ClCompile Include="Light.cpp">
       <Filter>Platform Independent</Filter>
+    </ClCompile>
+    <ClCompile Include="LightComponent.cpp">
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

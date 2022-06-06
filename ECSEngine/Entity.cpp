@@ -65,7 +65,14 @@ bool Entity::DrawImGuiInterface()
 		ImGui::Selectable("Material", &selected);
 		if (selected)
 		{
-			//AddComponent<Material>();
+			AddComponent<MaterialComponent>();
+			ImGui::CloseCurrentPopup();
+			selected = false;
+		}
+		ImGui::Selectable("Light", &selected);
+		if (selected)
+		{
+			AddComponent<LightComponent>();
 			ImGui::CloseCurrentPopup();
 			selected = false;
 		}
