@@ -35,7 +35,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 		std::copy(errorString.begin(), errorString.end(), longString);
 		longString[errorString.size()] = 0;
 		MessageBox(0, longString, L"Fatal Error", MB_ICONERROR | MB_OK);
-
+	
 		return -1;
 	}
 

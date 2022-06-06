@@ -58,6 +58,9 @@ void Transform::RecalculateWorldMat()
 
 	// Transpose
 	m_world = DirectX::XMMatrixTranspose(m_world);
+
+	// Inverse world matrix
+	m_invWorld = DirectX::XMMatrixTranspose(XMMatrixInverse(nullptr, m_world));
 }
 
 void Transform::CheckRotations()

@@ -15,14 +15,18 @@ struct LightBufferObject
 	DirectX::XMFLOAT4 m_direction;
 
 	LightType m_type;
+
 	bool m_enabled;
+	bool m_padding1;
+	bool m_padding2;
+	bool m_padding3;
 	float m_intensity;
 	float m_c1;
 
 	float m_c2;
-	float m_padding1;
-	float m_padding2;
-	float m_padding3;
+	float m_padding4;
+	float m_padding5;
+	float m_padding6;
 };
 
 class Light

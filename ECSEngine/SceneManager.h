@@ -20,7 +20,7 @@ public:
 	static void RemoveLight(Light* _light);
 	static Vector3D& GetAmbientRBG() { return m_instance->m_ambientColor; }
 	static void SetAmbientRGB(const Vector3D& _newColor) { m_instance->m_ambientColor = _newColor; }
-	const std::vector<Light*> GetEnabledLights() const;
+	static const std::vector<Light*> GetEnabledLights();
 
 	// Returns a list of all entities
 	static std::vector<Entity*> GetEntites() { return m_instance->m_entities; }

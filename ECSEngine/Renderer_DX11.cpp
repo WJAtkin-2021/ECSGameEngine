@@ -65,6 +65,8 @@ void Renderer_DX11::DrawScene()
 	m_constantBuffer->SetProjMat(camera->GetProjMatrix());
 	m_constantBuffer->SetWorldMat(camera->GetTransform().GetWorldMatrix());
 	m_constantBuffer->SetCameraPosition(camera->GetTransform().Position());
+	m_constantBuffer->SetAmbientLighting(SceneManager::GetAmbientRBG());
+	m_constantBuffer->SetLights();
 	m_constantBuffer->SetBufferForDrawCall();
 
 	// Draw the sky box
@@ -98,14 +100,17 @@ void Renderer_DX11::DrawScene()
 				// Set the mesh index and vertex buffers
 				mesh->SetBuffersForDrawCall();
 
+				//int i = sizeof(LightBufferObject);
+
 				// Set the constant buffer
 				m_constantBuffer->SetWorldMat(entities[i]->GetComponent<Transform>()->GetWorldMatrix());
+				m_constantBuffer->SetInverseWorldMat(entities[i]->GetComponent<Transform>()->GetInvWorldMatrix());
 				m_constantBuffer->SetEntityColor(entities[i]->GetColor());
 
 				// Grab the material
-				MaterialComponent* mc = entities[i]->GetComponent<MaterialComponent>();
-				if (mc != nullptr)
+				if (entities[i]->HasComponent<MaterialComponent>())
 				{
+					MaterialComponent* mc = entities[i]->GetComponent<MaterialComponent>();
 					// Set the correct shader to use and any textures that are required for this call
 					mc->GetShader()->SetPixelShaderForDrawCall();
 

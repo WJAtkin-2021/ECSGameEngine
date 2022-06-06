@@ -45,5 +45,11 @@
     <FxCompile Include="Resources\Shaders\SkyBoxPixelShader.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
+    <FxCompile Include="Resources\Shaders\ShaderLighting.fx">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\ShaderData.fx">
+      <Filter>Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

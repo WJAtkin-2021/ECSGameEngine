@@ -1,3 +1,5 @@
+#include "ShaderLighting.fx"
+
 Texture2D txDiffTexture : register(t0);
 Texture2D txNormMap : register(t1);
 TextureCube txEnviromentMap : register(t2);
@@ -9,38 +11,14 @@ static float3 LightPos = float3(0.0, 1000.0, 0.0);
 static float LightFactor = 0.25f;
 
 //--------------------------------------------------------------------------------------
-// Constant Buffer Variables
-//--------------------------------------------------------------------------------------
-cbuffer ConstantBuffer : register(b0)
-{
-	// 64 Bytes
-	matrix World;
-	// 64 Bytes
-	matrix View;
-	// 64 Bytes
-	matrix Projection;
-	// 16 Bytes
-	float4 Color;
-	// 16 Bytes
-	float4 CameraPosition;
-	// 16 Bytes
-	float SpecularPower;
-	float Metallic;
-	bool ShowEnviromentMap;
-	bool padding1;
-	bool padding2;
-	bool padding3;
-	float padding4;
-}
-
-//--------------------------------------------------------------------------------------
 struct VS_OUTPUT
 {
 	float4 pos : SV_POSITION;
-	float3 posW : TEXCOORD0;
+	float4 posW : TEXCOORD0;
 	float2 tex : TEXCOORD1;
 	float3 tangentW : TANGENT;
 	float3 norm : TEXCOORD2;
+	float3 normalWorld : TEXCOORD3;
 };
 
 //--------------------------------------------------------------------------------------
@@ -65,7 +43,7 @@ float4 main(VS_OUTPUT input) : SV_TARGET
 	if (ShowEnviromentMap)
 	{
 		// Sample the environment map
-		float3 V = normalize(CameraPosition.xyz - input.posW);
+		float3 V = normalize(CameraPosition.xyz - input.posW.xyz);
 		float3 viewDir = reflect(-V, normal);
 		float4 enviroment = txEnviromentMap.Sample(txTextureSampler, viewDir);
 

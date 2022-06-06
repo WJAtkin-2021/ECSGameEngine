@@ -90,7 +90,7 @@ void SceneManager::RemoveLight(Light* _light)
 	}
 }
 
-const std::vector<Light*> SceneManager::GetEnabledLights() const
+const std::vector<Light*> SceneManager::GetEnabledLights()
 {
 	std::vector<Light*> activeLights;
 

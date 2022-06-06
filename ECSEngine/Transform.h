@@ -17,6 +17,7 @@ public:
 	Vector3D Scale() const { return m_scale; }
 	Vector3D LookVector();
 	DirectX::XMMATRIX GetWorldMatrix();
+	DirectX::XMMATRIX GetInvWorldMatrix() { return m_invWorld; }
 
 	// Setters
 	// Setters for pos, rot and scale
@@ -70,4 +71,5 @@ private:
 
 	// World mat
 	DirectX::XMMATRIX m_world;
+	DirectX::XMMATRIX m_invWorld;
 };

@@ -1,19 +1,4 @@
-//--------------------------------------------------------------------------------------
-// Constant Buffer Variables
-//--------------------------------------------------------------------------------------
-cbuffer ConstantBuffer : register(b0)
-{
-	// 64 Bytes
-	matrix World;
-	// 64 Bytes
-	matrix View;
-	// 64 Bytes
-	matrix Projection;
-	// 16 Bytes
-	float4 Color;
-	// 16 Bytes
-	float4 CameraPosition;
-}
+#include "ShaderData.fx"
 
 //--------------------------------------------------------------------------------------
 struct VS_INPUT
@@ -26,11 +11,12 @@ struct VS_INPUT
 
 struct VS_OUTPUT
 {
-    float4 pos : SV_POSITION;
-	float3 PosW : TEXCOORD0;
+	float4 pos : SV_POSITION;
+	float4 posW : TEXCOORD0;
 	float2 tex : TEXCOORD1;
 	float3 tangentW : TANGENT;
 	float3 norm : TEXCOORD2;
+	float3 normalWorld : TEXCOORD3;
 };
 
 //--------------------------------------------------------------------------------------
@@ -41,7 +27,7 @@ VS_OUTPUT main(VS_INPUT input)
     VS_OUTPUT output = (VS_OUTPUT)0;
 
     output.pos = mul(input.pos, World);
-	output.PosW = output.pos.xyz;
+	output.posW = output.pos;
     output.pos = mul(output.pos, View);
     output.pos = mul(output.pos, Projection);
 
@@ -51,6 +37,8 @@ VS_OUTPUT main(VS_INPUT input)
 	output.tangentW = normalize(output.tangentW);
 
 	output.norm = input.norm.xyz;
+
+	output.normalWorld = mul(input.norm, InverseWorld).xyz;
 
 	return output;
 }

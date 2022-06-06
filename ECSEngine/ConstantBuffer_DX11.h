@@ -3,7 +3,6 @@
 
 #include <d3d11.h>
 #include <wrl.h>
-
 #include "ConstantBuffer.h"
 #include "ConstantBufferData.h"
 
@@ -17,13 +16,16 @@ public:
 	void SetBufferForDrawCall() override;
 
 	void SetWorldMat(DirectX::XMMATRIX _mat) override;
+	void SetInverseWorldMat(const DirectX::XMMATRIX& _newInvWorld) override;
 	void SetViewMat(DirectX::XMMATRIX _mat) override;
 	void SetProjMat(DirectX::XMMATRIX _mat) override;
 	void SetEntityColor(Vector3D _color) override;
+	void SetAmbientLighting(Vector3D _color) override;
 	void SetCameraPosition(Vector3D _pos) override;
 	void SetSpecularPower(float _specPower) override;
 	void SetMetallic(float _metallic) override;
 	void SetEnviromentMapFlag(bool _isEnabled) override;
+	void SetLights() override;
 
 private:
 

@@ -1,4 +1,7 @@
 #pragma once
+#ifdef BUILD_DX_11
+#include <DirectXMath.h>
+#endif // BUILD_DX_11
 
 class Vector3D
 {
@@ -29,6 +32,13 @@ public:
 	// Normalise a vector. The operation L.Normalise(R) replaces L with the normalised (unit length) version of R. It is equivalent to L=R.Normalise() but with less overhead, since a temporary object	is not returned.
 	const Vector3D& normalize(const Vector3D& v);
 	const Vector3D& normalize() { return normalize(*this); }
+
+#ifdef BUILD_DX_11
+
+	// Returns a XMFLOAT4 of this vector
+	const DirectX::XMFLOAT4 GetXMFLOAT4() const { return DirectX::XMFLOAT4(m_x, m_y, m_z, 1.0f); }
+
+#endif // BUILD_DX_11
 
 	float m_x, m_y, m_z;
 
