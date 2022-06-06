@@ -120,6 +120,15 @@
     <ClInclude Include="Time.h">
       <Filter>Utility</Filter>
     </ClInclude>
+    <ClInclude Include="DDSTextureLoader11.h">
+      <Filter>3rdParty\DDSTextureLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Platform Independent</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture_DX11.h">
+      <Filter>DirectX11</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -226,6 +235,15 @@
     <ClCompile Include="Time.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
+    <ClCompile Include="DDSTextureLoader11.cpp">
+      <Filter>3rdParty\DDSTextureLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Platform Independent</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture_DX11.cpp">
+      <Filter>DirectX11</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Platform Independent">
@@ -254,6 +272,9 @@
     </Filter>
     <Filter Include="Utility">
       <UniqueIdentifier>{abd748be-75b5-410f-9c65-ccdc4a76651d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rdParty\DDSTextureLoader">
+      <UniqueIdentifier>{3692443d-07d6-498a-8040-ac57845a2a94}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

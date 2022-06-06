@@ -63,3 +63,17 @@ std::shared_ptr<Shader> ResourceManager::GetShader(const ShaderType _shaderKey)
 
 	return m_instance->m_shaderMap[_shaderKey];
 }
+
+Texture& ResourceManager::GetTexture(const std::string _filePath)
+{
+	// Firstly search for the texture in the map
+	auto search = m_instance->m_textureMap.find(_filePath);
+	if (search == m_instance->m_textureMap.end())
+	{
+		// If not found then load the texture in
+		m_instance->m_textureMap[_filePath] = Texture::FactoryCreateTexture();
+		m_instance->m_textureMap[_filePath]->LoadTexture(_filePath);
+	}
+
+	return *(m_instance->m_textureMap[_filePath]);
+}
