@@ -51,6 +51,9 @@ public:
 	void RotateY(const float newY) { m_rotation.m_y += newY; CheckRotations(); RecalculateWorldMat(); }
 	void RotateZ(const float newZ) { m_rotation.m_z += newZ; CheckRotations(); RecalculateWorldMat(); }
 
+	void WriteDataToFile(std::ofstream& _saveFile) override;
+	void ReadDataFromFile(std::ifstream& _openFile) override;
+
 private:
 	// Hide the update functions here as they are called on the base
 	// class

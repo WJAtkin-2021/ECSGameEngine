@@ -1,0 +1,32 @@
+<?xml version=1.0?>
+<!--Scene File Version 2.0-->
+
+<Scene>
+<Camera>
+<Position> 2.04475 2.38866 -4.11155 </Position>
+<Rotation> 12.7 -23.4 0 </Rotation>
+</Camera>
+<AmbientLighting> 0.5 0.5 0.5 </AmbientLighting>
+<Entity>
+<EntityName> Test Cube </EntityName>
+<EntityColor> 1 0 1  </EntityColor>
+<Components>
+<ClassName> Transform </ClassName>
+<Position> 0 0 0 </Position>
+<Rotation> 0 0 0 </Rotation>
+<Scale> 1 1 1 </Scale>
+</ClassName>
+<ClassName> RenderComponent </ClassName>
+<PrimativeType> 1 </PrimativeType>
+<MeshFilePath> NONE </MeshFilePath>
+</ClassName>
+<ClassName> MaterialComponent </ClassName>
+<DiffuseFilePath> NONE </DiffuseFilePath>
+<NormalFilePath> NONE </NormalFilePath>
+<EnvironmentFilePath> NONE </EnvironmentFilePath>
+<Specular> 0.500000 </Specular>
+<Metallic> 0.100000 </Metallic>
+</ClassName>
+</Components>
+</Entity>
+</Scene>

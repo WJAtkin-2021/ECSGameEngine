@@ -1,3 +1,4 @@
+#include <fstream>
 #include "LightComponent.h"
 #include "SceneManager.h"
 
@@ -64,4 +65,78 @@ bool LightComponent::DrawImGuiInterface()
 	}
 
 	return keepThis;
+}
+
+void LightComponent::WriteDataToFile(std::ofstream& _saveFile)
+{
+	_saveFile << "<LightComponent>\n";
+	_saveFile << "<ClassName> LightComponent </ClassName>\n";
+	_saveFile << "<Color> " << m_light->Color().m_x << " " << m_light->Color().m_y << " " << m_light->Color().m_z << " </Color>\n";
+	_saveFile << "<Direction> " << m_light->Direction().m_x << " " << m_light->Direction().m_y << " " << m_light->Direction().m_z << " </Direction>\n";
+	_saveFile << "<Type> " << static_cast<int>(m_light->Type()) << " </Type>\n";
+	_saveFile << "<Intensity> " << m_light->Intensity() << " </Intensity>\n";
+	_saveFile << "<C1> " << m_light->C1() << " </C1>\n";
+	_saveFile << "<C2> " << m_light->C2() << " </C2>\n";
+	_saveFile << "<Enabled> " << m_light->Enabled() << " </Enabled>\n";
+	_saveFile << "</LightComponent>\n";
+}
+
+void LightComponent::ReadDataFromFile(std::ifstream& _openFile)
+{
+	std::string data = "";
+	_openFile >> data;
+
+	// Color data
+	Vector3D newColor = Vector3D();
+	_openFile >> data; // <Color>
+	_openFile >> data; // R component
+	newColor.m_x = std::stof(data);
+	_openFile >> data; // G component
+	newColor.m_y = std::stof(data);
+	_openFile >> data; // B component
+	newColor.m_z = std::stof(data);
+	_openFile >> data; // </Color>
+	m_light->SetColor(newColor);
+
+	// Direction
+	Vector3D newDir = Vector3D();
+	_openFile >> data; // <Direction>
+	_openFile >> data; // X component
+	newDir.m_x = std::stof(data);
+	_openFile >> data; // Y component
+	newDir.m_y = std::stof(data);
+	_openFile >> data; // Z component
+	newDir.m_z = std::stof(data);
+	_openFile >> data; // </Direction>
+	m_light->SetDirection(newDir);
+
+	// Light type
+	_openFile >> data; // <Type>
+	_openFile >> data; // Type as int
+	m_light->SetType(static_cast<LightType>(std::stoi(data)));
+	_openFile >> data; // </Type>
+
+	// Intensity
+	_openFile >> data; // <Intensity>
+	_openFile >> data; // Intensity as a float
+	m_light->SetIntensity(std::stof(data));
+	_openFile >> data; // </Intensity>
+
+	// C1
+	_openFile >> data; // <C1>
+	_openFile >> data; // C1 as a float
+	m_light->SetC1(std::stof(data));
+	_openFile >> data; // </C1>
+
+	// C2
+	_openFile >> data; // <C2>
+	_openFile >> data; // C2 as a float
+	m_light->SetC2(std::stof(data));
+	_openFile >> data; // </C2>
+
+	// Enabled state
+	_openFile >> data; // <Enabled>
+	_openFile >> data; // Enabled as a bool
+	m_light->SetEnabledState(static_cast<bool>(std::stoi(data)));
+	_openFile >> data; // </Enabled>
 }

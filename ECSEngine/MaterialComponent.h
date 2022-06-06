@@ -24,31 +24,33 @@ public:
 	~MaterialComponent() {}
 
 	// Setters
-	void SetDiffuseTexture(const std::string& _newTexture) { SetTexture(&mp_diffuseTex, _newTexture); }
-	void SetNormalMap(const std::string& _newTexture) { SetTexture(&mp_normalTex, _newTexture); }
-	void SetEnvironmentMap(const std::string& _newTexture) { SetTexture(&mp_environmentTex, _newTexture); }
+	void SetDiffuseTexture(const std::string& _newTexture) { SetTexture(&m_diffuseTex, _newTexture); }
+	void SetNormalMap(const std::string& _newTexture) { SetTexture(&m_normalTex, _newTexture); }
+	void SetEnvironmentMap(const std::string& _newTexture) { SetTexture(&m_environmentTex, _newTexture); }
 
 	// Getters
 	MaterialComponent* GetThis() { return this; }
 	std::shared_ptr<Shader> GetShader() const;
-	Texture* GetDiffuseTexture() const { return mp_diffuseTex; }
-	Texture* GetNormalMap() const { return mp_normalTex; }
-	Texture* GetEnvironmentMap() const { return mp_environmentTex; }
+	Texture* GetDiffuseTexture() const { return m_diffuseTex; }
+	Texture* GetNormalMap() const { return m_normalTex; }
+	Texture* GetEnvironmentMap() const { return m_environmentTex; }
 	const MaterialProperties GetMaterialProperties() const { return MaterialProperties(m_specularPower, m_metallic); }
 
 	// Internal
 	void Update() override {};
 	void StepPhysics() override {};
 	bool DrawImGuiInterface() override;
+	void WriteDataToFile(std::ofstream& _saveFile) override;
+	void ReadDataFromFile(std::ifstream& _openFile) override;
 
 private:
 
 	// Helper functions
 	void SetTexture(Texture** _textureToSet, const std::string& _newTexture) const;
 
-	Texture* mp_diffuseTex = nullptr;
-	Texture* mp_normalTex = nullptr;
-	Texture* mp_environmentTex = nullptr;
+	Texture* m_diffuseTex = nullptr;
+	Texture* m_normalTex = nullptr;
+	Texture* m_environmentTex = nullptr;
 
 	float m_specularPower = 0.5f;
 	float m_metallic = 0.1f;

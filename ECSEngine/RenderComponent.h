@@ -13,6 +13,8 @@ public:
 	void Update() override {};
 	void StepPhysics() override {};
 	bool DrawImGuiInterface() override;
+	void WriteDataToFile(std::ofstream& _saveFile) override;
+	void ReadDataFromFile(std::ifstream& _openFile) override;
 
 	// Setters
 	void SetMesh(Mesh& _mesh);

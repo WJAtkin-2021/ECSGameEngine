@@ -1,4 +1,5 @@
 #include <Windows.h>
+#include <fstream>
 #include "Camera.h"
 #include "Maths.h"
 #include "ResourceManager.h"
@@ -62,4 +63,44 @@ DirectX::XMMATRIX Camera::GetProjMatrix()
 	m_projectionMatrix = XMMatrixPerspectiveFovLH(XM_PIDIV2, static_cast<FLOAT>(m_screenWidth) / static_cast<FLOAT>(m_screenHeight), 0.01f, 100.0f);
 	m_projectionMatrix = XMMatrixTranspose(m_projectionMatrix);
 	return m_projectionMatrix;
+}
+
+void Camera::WriteDataToFile(std::ofstream& _saveFile)
+{
+	Vector3D pos = m_transform.Position();
+	Vector3D rot = m_transform.Rotation();
+
+	_saveFile << "<Camera>\n";
+	_saveFile << "<Position> " << pos.m_x << " " << pos.m_y << " " << pos.m_z << " </Position>\n";
+	_saveFile << "<Rotation> " << rot.m_x << " " << rot.m_y << " " << rot.m_z << " </Rotation>\n";
+	_saveFile << "</Camera>\n";
+}
+
+void Camera::ReadDataFromFile(std::ifstream& _openFile)
+{
+	std::string data = "";
+	_openFile >> data;
+	_openFile >> data;
+
+	// Position
+	Vector3D pos;
+	_openFile >> data;
+	pos.m_x = std::stof(data);
+	_openFile >> data;
+	pos.m_y = std::stof(data);
+	_openFile >> data;
+	pos.m_z = std::stof(data);
+	_openFile >> data;
+	// Rotation
+	Vector3D rot;
+	_openFile >> data;
+	_openFile >> data;
+	rot.m_x = std::stof(data);
+	_openFile >> data;
+	rot.m_y = std::stof(data);
+	_openFile >> data;
+	rot.m_z = std::stof(data);
+
+	m_transform.SetPosition(pos);
+	m_transform.SetRotation(rot);
 }

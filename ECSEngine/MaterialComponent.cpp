@@ -1,3 +1,4 @@
+#include <fstream>
 #include "MaterialComponent.h"
 #include "Entity.h"
 #include "ResourceManager.h"
@@ -39,7 +40,7 @@ std::shared_ptr<Shader> MaterialComponent::GetShader() const
 	{
 		// Ensure we have a texture before using the textured shader
 		// otherwise fall back to the untextured shader
-		if (mp_diffuseTex)
+		if (m_diffuseTex)
 		{
 			return ResourceManager::GetShader(ShaderType::PixelTextured_HLSL);
 		}
@@ -52,12 +53,12 @@ std::shared_ptr<Shader> MaterialComponent::GetShader() const
 	case RenderTechnique::BumpMapped:
 	{
 		// Make sure we have both a diffuse texture and a normal map
-		if (mp_diffuseTex && mp_normalTex)
+		if (m_diffuseTex && m_normalTex)
 		{
 			return ResourceManager::GetShader(ShaderType::PixelBumpMapped_HLSL);
 		}
 		// Else if we have a diffuse texture just use the textured shader
-		else if (mp_diffuseTex)
+		else if (m_diffuseTex)
 		{
 			return ResourceManager::GetShader(ShaderType::PixelTextured_HLSL);
 		}
@@ -84,9 +85,9 @@ bool MaterialComponent::DrawImGuiInterface()
 	{
 		// Diffuse texture
 		std::string textureFileText = "Diffuse Texture: ";
-		if (mp_diffuseTex)
+		if (m_diffuseTex)
 		{
-			textureFileText += mp_diffuseTex->GetTextureFilePath();
+			textureFileText += m_diffuseTex->GetTextureFilePath();
 		}
 		ImGui::Text(textureFileText.c_str());
 		if (ImGui::Button("New Diffuse Texture"))
@@ -105,9 +106,9 @@ bool MaterialComponent::DrawImGuiInterface()
 	
 		// Normal Map
 		textureFileText = "Normal Map: ";
-		if (mp_normalTex)
+		if (m_normalTex)
 		{
-			textureFileText += mp_normalTex->GetTextureFilePath();
+			textureFileText += m_normalTex->GetTextureFilePath();
 		}
 		ImGui::Text(textureFileText.c_str());
 		if (ImGui::Button("New Normal Map"))
@@ -126,9 +127,9 @@ bool MaterialComponent::DrawImGuiInterface()
 	
 		// Environment Map
 		textureFileText = "Environment Map: ";
-		if (mp_environmentTex)
+		if (m_environmentTex)
 		{
-			textureFileText += mp_environmentTex->GetTextureFilePath();
+			textureFileText += m_environmentTex->GetTextureFilePath();
 		}
 		ImGui::Text(textureFileText.c_str());
 		if (ImGui::Button("New Environment Map"))
@@ -153,4 +154,91 @@ bool MaterialComponent::DrawImGuiInterface()
 	}
 	
 	return keepThis;
+}
+
+
+void MaterialComponent::WriteDataToFile(std::ofstream& _saveFile)
+{
+	_saveFile << "<ClassName> MaterialComponent </ClassName>\n";
+	// Diffuse texture
+	_saveFile << "<DiffuseFilePath> ";
+	if (m_diffuseTex)
+	{
+		_saveFile << m_diffuseTex->GetTextureFilePath();
+	}
+	else
+	{
+		_saveFile << "NONE";
+	}
+	_saveFile << " </DiffuseFilePath>\n";
+	// Normal texture
+	_saveFile << "<NormalFilePath> ";
+	if (m_normalTex)
+	{
+		_saveFile << m_normalTex->GetTextureFilePath();
+	}
+	else
+	{
+		_saveFile << "NONE";
+	}
+	_saveFile << " </NormalFilePath>\n";
+	// Environment map
+	_saveFile << "<EnvironmentFilePath> ";
+	if (m_environmentTex)
+	{
+		_saveFile << m_environmentTex->GetTextureFilePath();
+	}
+	else
+	{
+		_saveFile << "NONE";
+	}
+	_saveFile << " </EnvironmentFilePath>\n";
+	// Settings
+	_saveFile << "<Specular> " << std::to_string(m_specularPower) << " </Specular>\n";
+	_saveFile << "<Metallic> " << std::to_string(m_metallic) << " </Metallic>\n";
+	_saveFile << "</ClassName>\n";
+}
+
+void MaterialComponent::ReadDataFromFile(std::ifstream& _openFile)
+{
+	std::string data = "";
+	_openFile >> data;
+
+	// Diffuse filepath
+	_openFile >> data; // <DiffuseFilePath>
+	_openFile >> data; // The filepath stored as a string
+	if (data != "NONE")
+	{
+		SetDiffuseTexture(data);
+	}
+	_openFile >> data; // </DiffuseFilePath>
+
+	// Normal filepath
+	_openFile >> data; // <NormalFilePath>
+	_openFile >> data; // The filepath stored as a string
+	if (data != "NONE")
+	{
+		SetNormalMap(data);
+	}
+	_openFile >> data; // </NormalFilePath>
+
+	// Environment filepath
+	_openFile >> data; // <EnvironmentFilePath>
+	_openFile >> data; // The filepath stored as a string
+	if (data != "NONE")
+	{
+		SetEnvironmentMap(data);
+	}
+	_openFile >> data; // </EnvironmentFilePath>
+
+	// Settings
+	_openFile >> data; // <Specular>
+	_openFile >> data; // Specular power stored as a float
+	m_specularPower = std::stof(data);
+	_openFile >> data; // </Specular>
+
+	_openFile >> data; // <Metallic>
+	_openFile >> data; // Metallic stored as a float
+	m_metallic = std::stof(data);
+	_openFile >> data; // </Metallic>
 }

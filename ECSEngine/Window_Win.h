@@ -12,6 +12,8 @@ public:
 	void Loop() override;
 	std::string GetMeshFile() override;
 	std::string GetTextureFile() override;
+	std::string GetSaveFile() override;
+	std::string GetOpenFile() override;
 
 	static HWND GetHandle() { return m_windowWin->m_hwnd; }
 

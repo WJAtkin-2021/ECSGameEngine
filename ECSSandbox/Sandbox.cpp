@@ -1,6 +1,7 @@
 #include "Sandbox.h"
 #include "SandboxUI.h"
 #include "ResourceManager.h"
+#include "ComponentLoaderSandbox.h"
 
 Sandbox::Sandbox(Window* _window, int _screenWidth, int _screenHeight) : Application(_window, _screenWidth, _screenHeight)
 {
@@ -16,6 +17,10 @@ void Sandbox::Init()
 {
 	// Call init on the base class first
 	Application::Init();
+
+	// Pass our derived component loader to the engine's scene manager
+	std::shared_ptr<ComponentLoaderEngine> compLoader = std::shared_ptr<ComponentLoaderEngine>(new ComponentLoaderSandbox());
+	SceneManager::SetComponentLoader(compLoader);
 
 	// Create the Sandbox UI class and pass it to the engine
 	std::shared_ptr<ApplicationUI> sandboxUI = std::shared_ptr<ApplicationUI>(new SandboxUI());

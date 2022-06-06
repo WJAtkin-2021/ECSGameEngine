@@ -17,6 +17,8 @@ public:
 	virtual void Update() = 0;
 	virtual void StepPhysics() = 0;
 	virtual bool DrawImGuiInterface() = 0;
+	virtual void WriteDataToFile(std::ofstream& _saveFile) = 0;
+	virtual void ReadDataFromFile(std::ifstream& _openFile) = 0;
 
 protected:
 	Component() = default;

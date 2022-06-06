@@ -142,6 +142,60 @@ std::string Window_Win::GetTextureFile()
 	return relativePath;
 }
 
+std::string Window_Win::GetSaveFile()
+{
+	WCHAR szPath[MAX_PATH] = {};
+
+	OPENFILENAME ofn = { sizeof(ofn) };
+	ofn.hwndOwner = m_hwnd;
+	ofn.lpstrFilter = L"XML Files (*.xml)\0*.xml\0";
+	ofn.nFilterIndex = 1;
+	ofn.lpstrFile = szPath;
+	ofn.nMaxFile = ARRAYSIZE(szPath);
+	ofn.Flags = OFN_NOCHANGEDIR;
+
+	const BOOL fOk = GetSaveFileName(&ofn);
+	std::string filePath = "";
+	if (fOk)
+	{
+		// Remove the current scene and open the new file
+		for (int i = 0; i < MAX_PATH; i++)
+			filePath += static_cast<char>(szPath[i]);
+
+	}
+
+	// Reset the keys as the window lost focus
+	UserInput::ResetKeyPresses();
+
+	return filePath;
+}
+
+std::string Window_Win::GetOpenFile()
+{
+	WCHAR szPath[MAX_PATH] = {};
+
+	OPENFILENAME ofn = { sizeof(ofn) };
+	ofn.hwndOwner = m_hwnd;
+	ofn.lpstrFilter = L"XML Files (*.xml)\0*.xml\0";
+	ofn.lpstrFile = szPath;
+	ofn.nMaxFile = ARRAYSIZE(szPath);
+	ofn.Flags = OFN_NOCHANGEDIR;
+
+	const BOOL fOk = GetOpenFileName(&ofn);
+	std::string filePath = "";
+	if (fOk)
+	{
+		// Remove the current scene and open the new file
+		for (int i = 0; i < MAX_PATH; i++)
+			filePath += static_cast<char>(szPath[i]);
+
+	}
+
+	// Reset the keys as the window lost focus
+	UserInput::ResetKeyPresses();
+	return filePath;
+}
+
 LRESULT CALLBACK Window_Win::WindowProc(HWND _hwnd, UINT _uMsg, WPARAM _wParam, LPARAM _lParam)
 {
 	// Check if this message was meant for Dear ImGui

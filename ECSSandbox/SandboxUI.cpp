@@ -2,6 +2,7 @@
 #include "SandboxUI.h"
 #include "SceneManager.h"
 #include "Renderer.h"
+#include "Window.h"
 
 SandboxUI::SandboxUI()
 {
@@ -29,6 +30,33 @@ void SandboxUI::DrawTopBar()
     {
         if (ImGui::BeginMenu("File"))
         {
+            if (ImGui::MenuItem("New", "Ctrl+N"))
+            {
+                SceneManager::NewScene();
+                m_selectedEntity = nullptr;
+            }
+            if (ImGui::MenuItem("Open", "Ctrl+O"))
+            {
+                const std::string filepath = Window::GetWindowInstance()->GetOpenFile();
+                SceneManager::OpenScene(filepath);
+            }
+            if (ImGui::MenuItem("Save", "Ctrl+S"))
+            {
+                if (SceneManager::HasValidSavePath())
+                {
+                    SceneManager::SaveScene();
+                }
+                else
+                {
+                    const std::string filepath = Window::GetWindowInstance()->GetSaveFile();
+                    SceneManager::SaveSceneAs(filepath);
+                }
+            }
+            if (ImGui::MenuItem("Save As..."))
+            {
+                const std::string filepath = Window::GetWindowInstance()->GetSaveFile();
+                SceneManager::SaveSceneAs(filepath);
+            }
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("View"))

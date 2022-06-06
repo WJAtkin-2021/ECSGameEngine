@@ -1,3 +1,4 @@
+#include <fstream>
 #include "RenderComponent.h"
 #include "Mesh.h"
 #include "ResourceManager.h"
@@ -77,4 +78,49 @@ bool RenderComponent::DrawImGuiInterface()
 	}
 
 	return keepThis;
+}
+
+void RenderComponent::WriteDataToFile(std::ofstream& _saveFile)
+{
+	_saveFile << "<ClassName> RenderComponent </ClassName>\n";
+	_saveFile << "<PrimativeType> " << std::to_string(static_cast<int>(m_meshPrimative)) << " </PrimativeType>\n";
+	if (m_meshFilePath != "")
+	{
+		_saveFile << "<MeshFilePath> " << m_meshFilePath.c_str() << " </MeshFilePath>\n";
+	}
+	else
+	{
+		_saveFile << "<MeshFilePath> " << "NONE" << " </MeshFilePath>\n";
+	}
+	_saveFile << "</ClassName>\n";
+}
+
+void RenderComponent::ReadDataFromFile(std::ifstream& _openFile)
+{
+	std::string data = "";
+	_openFile >> data;
+
+	// Primitive type
+	_openFile >> data;
+	_openFile >> data;
+	if (std::stoi(data) != 0)
+	{
+		SetMesh(ResourceManager::GetMesh(static_cast<PrimitiveTypes>(std::stoi(data))));
+	}
+	_openFile >> data;
+	_openFile >> data;
+	_openFile >> data;
+	if (data == "NONE")
+	{
+		m_meshFilePath = "";
+	}
+	else
+	{
+		m_meshFilePath = data;
+	}
+
+	if (m_meshPrimative == PrimitiveTypes::INVALID && m_meshFilePath != "")
+	{
+		SetMesh(ResourceManager::GetMesh(data));
+	}
 }

@@ -1,3 +1,4 @@
+#include <fstream>
 #include "Transform.h"
 #include "Maths.h"
 #include "StringHelper.h"
@@ -165,4 +166,49 @@ bool Transform::DrawImGuiInterface()
 	}
 
 	return true;
+}
+
+void Transform::WriteDataToFile(std::ofstream& _saveFile)
+{
+	_saveFile << "<ClassName> Transform </ClassName>\n";
+	_saveFile << "<Position> " << m_position.m_x << " " << m_position.m_y << " " << m_position.m_z << " </Position>\n";
+	_saveFile << "<Rotation> " << m_rotation.m_x << " " << m_rotation.m_y << " " << m_rotation.m_z << " </Rotation>\n";
+	_saveFile << "<Scale> " << m_scale.m_x << " " << m_scale.m_y << " " << m_scale.m_z << " </Scale>\n";
+	_saveFile << "</ClassName>\n";
+}
+
+void Transform::ReadDataFromFile(std::ifstream& _openFile)
+{
+	std::string data = "";
+	_openFile >> data;
+	// Position
+	_openFile >> data;
+	_openFile >> data;
+	m_position.m_x = std::stof(data);
+	_openFile >> data;
+	m_position.m_y = std::stof(data);
+	_openFile >> data;
+	m_position.m_z = std::stof(data);
+	_openFile >> data;
+
+	// Rotation
+	_openFile >> data;
+	_openFile >> data;
+	m_rotation.m_x = std::stof(data);
+	_openFile >> data;
+	m_rotation.m_y = std::stof(data);
+	_openFile >> data;
+	m_rotation.m_z = std::stof(data);
+	_openFile >> data;
+
+	// Scale
+	_openFile >> data;
+	_openFile >> data;
+	m_scale.m_x = std::stof(data);
+	_openFile >> data;
+	m_scale.m_y = std::stof(data);
+	_openFile >> data;
+	m_scale.m_z = std::stof(data);
+
+	RecalculateWorldMat();
 }

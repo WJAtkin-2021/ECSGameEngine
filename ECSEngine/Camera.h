@@ -15,6 +15,9 @@ public:
 	DirectX::XMMATRIX GetViewMatrix();
 	DirectX::XMMATRIX GetProjMatrix();
 
+	void WriteDataToFile(std::ofstream& _saveFile);
+	void ReadDataFromFile(std::ifstream& _openFile);
+
 private:
 
 	static Camera* m_instance;

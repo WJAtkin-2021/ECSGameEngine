@@ -21,6 +21,7 @@ public:
 	std::string GetName() { return m_name; }
 	int GetId() { return m_id; }
 	Vector3D GetColor() { return m_color; }
+	std::vector<Component*> GetComponents() { return m_components; }
 
 	// Setters
 	void SetName(std::string _name) { m_name = _name; }
