@@ -39,5 +39,7 @@
     <FxCompile Include="Resources\Shaders\BumpMappedPixelShader.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
+    <FxCompile Include="Resources\Shaders\SkyBoxPixelShader.hlsl" />
+    <FxCompile Include="Resources\Shaders\SkyBoxVertexShader.hlsl" />
   </ItemGroup>
 </Project>

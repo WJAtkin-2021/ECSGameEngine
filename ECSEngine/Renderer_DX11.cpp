@@ -55,10 +55,7 @@ void Renderer_DX11::DrawScene()
 	// Rebind the render target
 	m_immediateContext->OMSetRenderTargets(1, m_renderTargetView.GetAddressOf(), m_depthStencilView.Get());
 
-	// Set the vertex shader
-	ResourceManager::GetShader(ShaderType::Vertex_HLSL)->SetVertexShaderForDrawCall();
-
-	// ******************** Main Draw Calls ******************** //
+	// ************************ Sky Box ************************ //
 
 	// Grab the camera
 	Camera* camera = Camera::GetCamera();
@@ -66,7 +63,24 @@ void Renderer_DX11::DrawScene()
 	// Set the per frame variables in the constant buffer
 	m_constantBuffer->SetViewMat(camera->GetViewMatrix());
 	m_constantBuffer->SetProjMat(camera->GetProjMatrix());
+	m_constantBuffer->SetWorldMat(camera->GetTransform().GetWorldMatrix());
 	m_constantBuffer->SetCameraPosition(camera->GetTransform().Position());
+	m_constantBuffer->SetBufferForDrawCall();
+
+	// Draw the sky box
+	ResourceManager::GetShader(ShaderType::VertexSkyBox_HLSL)->SetVertexShaderForDrawCall();
+	ResourceManager::GetShader(ShaderType::PixelSkyBox_HLSL)->SetPixelShaderForDrawCall();
+	m_immediateContext->OMSetDepthStencilState(m_depthStenStateNoWrite.Get(), 1);
+	ResourceManager::GetTexture(std::string("Resources\\Textures\\Skymap.dds")).SetTextureAsDiffuseForDrawCall();
+	Mesh& skyBoxCube = ResourceManager::GetMesh(PrimitiveTypes::Cube);
+	skyBoxCube.SetBuffersForDrawCall();
+	m_immediateContext->DrawIndexed(skyBoxCube.GetNumberOfIndicies(), 0, 0);
+
+	// Re-enable depth writing and reset the vertex shader
+	m_immediateContext->OMSetDepthStencilState(m_depthStenStateNormal.Get(), 0);
+	ResourceManager::GetShader(ShaderType::Vertex_HLSL)->SetVertexShaderForDrawCall();
+
+	// ******************** Main Draw Calls ******************** //
 
 	// Grab the entity list and loop through each entity
 	std::vector<Entity*> entities = SceneManager::GetEntites();
@@ -298,6 +312,14 @@ void Renderer_DX11::CreateDepthSencil()
 
 	// Normal depth stencil state
 	HRESULT hr = m_d3dDevice->CreateDepthStencilState(&dsDesc, m_depthStenStateNormal.GetAddressOf());
+	if (FAILED(hr))
+	{
+		throw std::runtime_error("Unable to create depth stencil state");
+	}
+
+	// No write stencil state
+	dsDesc.DepthEnable = false;
+	hr = m_d3dDevice->CreateDepthStencilState(&dsDesc, m_depthStenStateNoWrite.GetAddressOf());
 	if (FAILED(hr))
 	{
 		throw std::runtime_error("Unable to create depth stencil state");

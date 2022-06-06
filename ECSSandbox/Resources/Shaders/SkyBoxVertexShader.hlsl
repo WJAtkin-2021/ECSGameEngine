@@ -13,6 +13,14 @@ cbuffer ConstantBuffer : register(b0)
 	float4 Color;
 	// 16 Bytes
 	float4 CameraPosition;
+	// 16 Bytes
+	float SpecularPower;
+	float Metallic;
+	bool ShowEnviromentMap;
+	bool padding1;
+	bool padding2;
+	bool padding3;
+	float padding4;
 }
 
 //--------------------------------------------------------------------------------------

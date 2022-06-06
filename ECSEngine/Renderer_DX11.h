@@ -50,6 +50,7 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11RasterizerState> m_rasterSolidState;
 	Microsoft::WRL::ComPtr<ID3D11RasterizerState> m_rasterWireframeState;
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> m_depthStenStateNormal;
+	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> m_depthStenStateNoWrite;
 };
 
 #endif // BUILD_DX_11

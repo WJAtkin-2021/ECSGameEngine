@@ -135,6 +135,9 @@
     <ClInclude Include="RenderTechnique.h">
       <Filter>Utility</Filter>
     </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Platform Independent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -252,6 +255,9 @@
     </ClCompile>
     <ClCompile Include="MaterialComponent.cpp">
       <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Platform Independent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
