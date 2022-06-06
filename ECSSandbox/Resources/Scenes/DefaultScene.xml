@@ -3,13 +3,13 @@
 
 <Scene>
 <Camera>
-<Position> 2.04475 2.38866 -4.11155 </Position>
-<Rotation> 12.7 -23.4 0 </Rotation>
+<Position> 1.2652 1.29512 -2.40758 </Position>
+<Rotation> 22.2 -27.4 0 </Rotation>
 </Camera>
-<AmbientLighting> 0.5 0.5 0.5 </AmbientLighting>
+<AmbientLighting> 0.372549 0.372549 0.372549 </AmbientLighting>
 <Entity>
-<EntityName> Test Cube </EntityName>
-<EntityColor> 1 0 1  </EntityColor>
+<EntityName> Cube </EntityName>
+<EntityColor> 1 0 1 </EntityColor>
 <Components>
 <ClassName> Transform </ClassName>
 <Position> 0 0 0 </Position>
@@ -27,6 +27,27 @@
 <Specular> 0.500000 </Specular>
 <Metallic> 0.100000 </Metallic>
 </ClassName>
+</Components>
+</Entity>
+<Entity>
+<EntityName> SkyLight </EntityName>
+<EntityColor> 1 0 1 </EntityColor>
+<Components>
+<ClassName> Transform </ClassName>
+<Position> 0 0 0 </Position>
+<Rotation> 0 0 0 </Rotation>
+<Scale> 1 1 1 </Scale>
+</ClassName>
+<LightComponent>
+<ClassName> LightComponent </ClassName>
+<Color> 0.897059 0.865677 0.725562 </Color>
+<Direction> 0 -1 0 </Direction>
+<Type> 0 </Type>
+<Intensity> 0.628571 </Intensity>
+<C1> 1.6 </C1>
+<C2> 0.8 </C2>
+<Enabled> 1 </Enabled>
+</LightComponent>
 </Components>
 </Entity>
 </Scene>
