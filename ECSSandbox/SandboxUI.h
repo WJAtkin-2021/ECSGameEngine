@@ -15,6 +15,8 @@ private:
 	void DrawScenehierarchy();
 	void DrawInspector();
 	void DrawEnityInHierarchy(Entity* _entity);
+	void DrawLightingWindow();
+	void DrawRenderWindow();
 
 	Entity* m_selectedEntity = nullptr;
 };

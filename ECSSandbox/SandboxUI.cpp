@@ -1,6 +1,7 @@
 #include "imgui/imgui.h"
 #include "SandboxUI.h"
 #include "SceneManager.h"
+#include "Renderer.h"
 
 SandboxUI::SandboxUI()
 {
@@ -17,6 +18,8 @@ void SandboxUI::DrawUI()
 	DrawTopBar();
 	DrawScenehierarchy();
 	DrawInspector();
+    DrawLightingWindow();
+    DrawRenderWindow();
 }
 
 void SandboxUI::DrawTopBar()
@@ -111,4 +114,37 @@ void SandboxUI::DrawEnityInHierarchy(Entity* _entity)
     {
         m_selectedEntity = _entity;
     }
+}
+
+void SandboxUI::DrawLightingWindow()
+{
+    ImGui::Begin("Lighting");
+
+    // Ambient lighting
+    ImGui::Text("Ambient Lighting:");
+    Vector3D ambient = SceneManager::GetAmbientRBG();
+    float color[4] = { ambient.m_x, ambient.m_y, ambient.m_z, 1.0f };
+    ImGui::ColorEdit4("", color, ImGuiColorEditFlags_Float);
+    ambient = Vector3D(color[0], color[1], color[2]);
+    SceneManager::SetAmbientRGB(ambient);
+    ImGui::End();
+}
+
+void SandboxUI::DrawRenderWindow()
+{
+    ImGui::Begin("Render");
+
+    // Show rendering technique
+    ImGui::Text("Rendering Technique:");
+    const char* technique[] = { "Wireframe", "Diffuse (Untextured)", "Diffuse (textured)", "Bump Mapped" };
+    int selectedtechnique = static_cast<int>(Renderer::GetRenderer()->GetMaxRenderLevel());
+    ImGui::Combo("##RenderWindow1", &selectedtechnique, technique, IM_ARRAYSIZE(technique));
+    Renderer::GetRenderer()->SetRenderLevel(static_cast<RenderTechnique>(selectedtechnique));
+
+    // Show skybox
+    bool enableSky = Renderer::GetRenderer()->GetSkyboxShow();
+    ImGui::Checkbox("Enable Skybox", &enableSky);
+    Renderer::GetRenderer()->SetSkyboxShow(enableSky);
+
+    ImGui::End();
 }

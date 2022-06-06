@@ -80,5 +80,5 @@ private:
 	int m_nextCompId = 0;
 
 	// Color of the entity, used for fall back rendering
-	Vector3D m_color;
+	Vector3D m_color = Vector3D(1.0f, 0.0f, 1.0f);
 };

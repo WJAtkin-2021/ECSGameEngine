@@ -55,6 +55,9 @@ void Renderer_DX11::DrawScene()
 	// Rebind the render target
 	m_immediateContext->OMSetRenderTargets(1, m_renderTargetView.GetAddressOf(), m_depthStencilView.Get());
 
+	// Set the raster state to solid
+	m_immediateContext->RSSetState(m_rasterSolidState.Get());
+
 	// ************************ Sky Box ************************ //
 
 	// Grab the camera
@@ -69,20 +72,29 @@ void Renderer_DX11::DrawScene()
 	m_constantBuffer->SetLights();
 	m_constantBuffer->SetBufferForDrawCall();
 
-	// Draw the sky box
-	ResourceManager::GetShader(ShaderType::VertexSkyBox_HLSL)->SetVertexShaderForDrawCall();
-	ResourceManager::GetShader(ShaderType::PixelSkyBox_HLSL)->SetPixelShaderForDrawCall();
-	m_immediateContext->OMSetDepthStencilState(m_depthStenStateNoWrite.Get(), 1);
-	ResourceManager::GetTexture(std::string("Resources\\Textures\\Skymap.dds")).SetTextureAsDiffuseForDrawCall();
-	Mesh& skyBoxCube = ResourceManager::GetMesh(PrimitiveTypes::Cube);
-	skyBoxCube.SetBuffersForDrawCall();
-	m_immediateContext->DrawIndexed(skyBoxCube.GetNumberOfIndicies(), 0, 0);
+	if (m_showSkybox)
+	{
+		// Draw the sky box
+		ResourceManager::GetShader(ShaderType::VertexSkyBox_HLSL)->SetVertexShaderForDrawCall();
+		ResourceManager::GetShader(ShaderType::PixelSkyBox_HLSL)->SetPixelShaderForDrawCall();
+		m_immediateContext->OMSetDepthStencilState(m_depthStenStateNoWrite.Get(), 1);
+		ResourceManager::GetTexture(std::string("Resources\\Textures\\Skymap.dds")).SetTextureAsDiffuseForDrawCall();
+		Mesh& skyBoxCube = ResourceManager::GetMesh(PrimitiveTypes::Cube);
+		skyBoxCube.SetBuffersForDrawCall();
+		m_immediateContext->DrawIndexed(skyBoxCube.GetNumberOfIndicies(), 0, 0);
+	}
 
 	// Re-enable depth writing and reset the vertex shader
 	m_immediateContext->OMSetDepthStencilState(m_depthStenStateNormal.Get(), 0);
 	ResourceManager::GetShader(ShaderType::Vertex_HLSL)->SetVertexShaderForDrawCall();
 
 	// ******************** Main Draw Calls ******************** //
+
+	// Set the wireframe state
+	if (m_renderLevel == RenderTechnique::Wireframe)
+	{
+		m_immediateContext->RSSetState(m_rasterWireframeState.Get());
+	}
 
 	// Grab the entity list and loop through each entity
 	std::vector<Entity*> entities = SceneManager::GetEntites();
@@ -99,8 +111,6 @@ void Renderer_DX11::DrawScene()
 				// Setup for the draw call
 				// Set the mesh index and vertex buffers
 				mesh->SetBuffersForDrawCall();
-
-				//int i = sizeof(LightBufferObject);
 
 				// Set the constant buffer
 				m_constantBuffer->SetWorldMat(entities[i]->GetComponent<Transform>()->GetWorldMatrix());
