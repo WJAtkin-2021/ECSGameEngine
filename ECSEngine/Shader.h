@@ -11,13 +11,14 @@ enum class ShaderType : unsigned int
 	PixelFallBack_HLSL = 3,
 	PixelTextured_HLSL = 4,
 	PixelSkyBox_HLSL = 5,
+	PixelBumpMapped_HLSL = 6,
 
 	// ********* GLSL *********
-	Vertex_GLSL = 6,
-	VertexSkyBox_GLSL = 7,
-	FragmentFallBack_GLSL = 8,
-	FragmentTextured_GLSL = 9,
-	FragmentSkyBox_GLSL = 10,
+	Vertex_GLSL = 7,
+	VertexSkyBox_GLSL = 8,
+	FragmentFallBack_GLSL = 9,
+	FragmentTextured_GLSL = 10,
+	FragmentSkyBox_GLSL = 11,
 };
 
 class Shader

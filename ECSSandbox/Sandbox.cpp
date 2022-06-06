@@ -1,5 +1,6 @@
 #include "Sandbox.h"
 #include "SandboxUI.h"
+#include "ResourceManager.h"
 
 Sandbox::Sandbox(Window* _window, int _screenWidth, int _screenHeight) : Application(_window, _screenWidth, _screenHeight)
 {

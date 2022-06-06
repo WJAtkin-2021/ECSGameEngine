@@ -1,6 +1,8 @@
 #pragma once
 #include "UI.h"
 #include "ConstantBuffer.h"
+#include "Renderer.h"
+#include "RenderTechnique.h"
 
 class Renderer
 {
@@ -9,6 +11,10 @@ public:
 	virtual void DrawScene() = 0;
 
 	virtual ~Renderer();
+
+	static Renderer* GetRenderer() { return m_renderer; }
+
+	RenderTechnique GetMaxRenderLevel() { return m_renderLevel; }
 
 protected:
 	Renderer();
@@ -21,4 +27,10 @@ protected:
 
 	// UI class that sets up and manages ImGui
 	UI* m_UI = nullptr;
+
+	// Highest level of rendering permitted
+	RenderTechnique m_renderLevel = RenderTechnique::BumpMapped;
+
+protected:
+	static Renderer* m_renderer;
 };

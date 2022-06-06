@@ -129,6 +129,12 @@
     <ClInclude Include="Texture_DX11.h">
       <Filter>DirectX11</Filter>
     </ClInclude>
+    <ClInclude Include="MaterialComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTechnique.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -243,6 +249,9 @@
     </ClCompile>
     <ClCompile Include="Texture_DX11.cpp">
       <Filter>DirectX11</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialComponent.cpp">
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
