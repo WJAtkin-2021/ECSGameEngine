@@ -8,6 +8,7 @@ public:
 	virtual void Init() = 0;
 	virtual void Loop();
 	virtual std::string GetMeshFile() = 0;
+	virtual std::string GetTextureFile() = 0;
 
 	void SetApplication(Application* _app) { m_application = _app; }
 

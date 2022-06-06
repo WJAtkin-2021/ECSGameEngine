@@ -37,7 +37,8 @@ public:
 	const MaterialProperties& GetMaterialProperties() const { return MaterialProperties(m_specularPower, m_metallic); }
 
 	// Internal
-	void Update() override { }
+	void Update() override {};
+	void StepPhysics() override {};
 	bool DrawImGuiInterface() override;
 
 private:

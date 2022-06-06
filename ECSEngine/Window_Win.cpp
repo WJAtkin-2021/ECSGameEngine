@@ -109,8 +109,36 @@ std::string Window_Win::GetMeshFile()
 		relativePath = std::filesystem::relative(filePath).generic_string();
 	}
 
-	// TOD: Reset the keys as the window lost focus
-	//UserInput::ResetKeyPresses();
+	// Reset the keys as the window lost focus
+	UserInput::ResetKeyPresses();
+	return relativePath;
+}
+
+std::string Window_Win::GetTextureFile()
+{
+	WCHAR szPath[MAX_PATH] = {};
+
+	OPENFILENAME ofn = { sizeof(ofn) };
+	ofn.hwndOwner = m_hwnd;
+	ofn.lpstrFilter = L"DDS Files (*.dds)\0*.dds\0";
+	ofn.lpstrFile = szPath;
+	ofn.nMaxFile = ARRAYSIZE(szPath);
+	ofn.Flags = OFN_NOCHANGEDIR;
+
+	const BOOL fOk = GetOpenFileName(&ofn);
+	std::string relativePath;
+	if (fOk)
+	{
+		// Decompose the path into a relative path
+		TCHAR NPath[MAX_PATH];
+		GetCurrentDirectory(MAX_PATH, NPath);
+		std::filesystem::current_path(NPath);
+		const std::filesystem::path filePath = std::filesystem::path(szPath);
+		relativePath = std::filesystem::relative(filePath).generic_string();
+	}
+
+	// Reset the keys as the window lost focus
+	UserInput::ResetKeyPresses();
 	return relativePath;
 }
 

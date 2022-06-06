@@ -28,8 +28,9 @@ void Sandbox::Init()
 	Entity* testCube1 = SceneManager::CreateEntity();
 	testCube1->GetComponent<Transform>()->SetPosition(Vector3D(0.0f, 0.0f, 0.0f));
 	testCube1->SetName("Test Cube");
-	RenderComponent* testRender = testCube1->AddComponent<RenderComponent>();
-	testRender->SetMesh(ResourceManager::GetMesh(PrimitiveTypes::Cube));
+	RenderComponent* rc = testCube1->AddComponent<RenderComponent>();
+	rc->SetMesh(ResourceManager::GetMesh(PrimitiveTypes::Cube));
+	MaterialComponent* mc = testCube1->AddComponent<MaterialComponent>();
 }
 
 void Sandbox::Update()

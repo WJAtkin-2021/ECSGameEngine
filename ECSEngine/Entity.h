@@ -7,6 +7,7 @@
 #include "Component.h"
 #include "Transform.h"
 #include "RenderComponent.h"
+#include "MaterialComponent.h"
 
 class Entity
 {
