@@ -58,7 +58,7 @@ void Renderer_DX11::DrawScene()
 	// Set the vertex shader
 	ResourceManager::GetShader(ShaderType::Vertex_HLSL)->SetVertexShaderForDrawCall();
 
-	// ******************** Main Draw Calls ********************
+	// ******************** Main Draw Calls ******************** //
 
 	// Grab the camera
 	Camera* camera = Camera::GetCamera();
@@ -87,10 +87,53 @@ void Renderer_DX11::DrawScene()
 				// Set the constant buffer
 				m_constantBuffer->SetWorldMat(entities[i]->GetComponent<Transform>()->GetWorldMatrix());
 				m_constantBuffer->SetEntityColor(entities[i]->GetColor());
-				m_constantBuffer->SetBufferForDrawCall();
 
-				// Set the correct pixel shader
-				ResourceManager::GetShader(ShaderType::PixelFallBack_HLSL)->SetPixelShaderForDrawCall();
+				// Grab the material
+				MaterialComponent* mc = entities[i]->GetComponent<MaterialComponent>();
+				if (mc != nullptr)
+				{
+					// Set the correct shader to use and any textures that are required for this call
+					mc->GetShader()->SetPixelShaderForDrawCall();
+
+					// Diffuse texture
+					Texture* diffTexture = mc->GetDiffuseTexture();
+					if (diffTexture != nullptr)
+					{
+						diffTexture->SetTextureAsDiffuseForDrawCall();
+					}
+
+					// Normal texture
+					Texture* normTexture = mc->GetNormalMap();
+					if (normTexture != nullptr)
+					{
+						normTexture->SetTextureAsNormalForDrawCall();
+					}
+
+					// Environment map texture
+					Texture* enviromentTexture = mc->GetEnvironmentMap();
+					if (enviromentTexture != nullptr)
+					{
+						enviromentTexture->SetTextureAsEnviromentForDrawCall();
+						m_constantBuffer->SetEnviromentMapFlag(true);
+					}
+					else
+					{
+						m_constantBuffer->SetEnviromentMapFlag(false);
+					}
+
+					// Update the last 2 values in the constant buffer
+					MaterialProperties mp = mc->GetMaterialProperties();
+					m_constantBuffer->SetSpecularPower(mp.specularPower);
+					m_constantBuffer->SetMetallic(mp.metallic);
+				}
+				else
+				{
+					// Simply use the fall back if no material is present
+					ResourceManager::GetShader(ShaderType::PixelFallBack_HLSL)->SetPixelShaderForDrawCall();
+				}
+
+				// Finalise the constant buffer
+				m_constantBuffer->SetBufferForDrawCall();
 
 				// Draw call
 				m_immediateContext->DrawIndexed(mesh->GetNumberOfIndicies(), 0, 0);
@@ -98,7 +141,7 @@ void Renderer_DX11::DrawScene()
 		}
 	}
 
-	// *********************************************************
+	// ********************************************************* //
 
 	// Draw the UI
 	UI_DX11* ui = dynamic_cast<UI_DX11*>(UI::GetIU());

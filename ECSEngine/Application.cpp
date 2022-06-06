@@ -32,9 +32,9 @@ void Application::Init()
 	ResourceManager::GetShader(ShaderType::Vertex_HLSL);
 	//ResourceManager::GetShader(ShaderType::VertexSkyBox_HLSL);
 	ResourceManager::GetShader(ShaderType::PixelFallBack_HLSL);
-	//ResourceManager::GetShader(ShaderType::PixelTextured_HLSL);
+	ResourceManager::GetShader(ShaderType::PixelTextured_HLSL);
 	//ResourceManager::GetShader(ShaderType::PixelSkyBox_HLSL);
-	//ResourceManager::GetShader(ShaderType::PixelBumpMapped_HLSL);
+	ResourceManager::GetShader(ShaderType::PixelBumpMapped_HLSL);
 #elif BUILD_OpenGL
 	ResourceManager::GetShader(ShaderType::Vertex_GLSL);
 	ResourceManager::GetShader(ShaderType::VertexSkyBox_GLSL);

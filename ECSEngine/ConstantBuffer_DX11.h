@@ -21,6 +21,9 @@ public:
 	void SetProjMat(DirectX::XMMATRIX _mat) override;
 	void SetEntityColor(Vector3D _color) override;
 	void SetCameraPosition(Vector3D _pos) override;
+	void SetSpecularPower(float _specPower) override;
+	void SetMetallic(float _metallic) override;
+	void SetEnviromentMapFlag(bool _isEnabled) override;
 
 private:
 

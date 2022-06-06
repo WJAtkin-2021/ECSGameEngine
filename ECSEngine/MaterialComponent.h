@@ -31,9 +31,9 @@ public:
 	// Getters
 	MaterialComponent* GetThis() { return this; }
 	std::shared_ptr<Shader> GetShader() const;
-	const Texture* GetDiffuseTexture() const { return mp_diffuseTex; }
-	const Texture* GetNormalMap() const { return mp_normalTex; }
-	const Texture* GetEnvironmentMap() const { return mp_environmentTex; }
+	Texture* GetDiffuseTexture() const { return mp_diffuseTex; }
+	Texture* GetNormalMap() const { return mp_normalTex; }
+	Texture* GetEnvironmentMap() const { return mp_environmentTex; }
 	const MaterialProperties& GetMaterialProperties() const { return MaterialProperties(m_specularPower, m_metallic); }
 
 	// Internal

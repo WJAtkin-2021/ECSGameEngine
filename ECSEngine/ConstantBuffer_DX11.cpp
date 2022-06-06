@@ -82,4 +82,19 @@ void ConstantBuffer_DX11::SetCameraPosition(Vector3D _pos)
 	m_constBufferData.m_cameraPosition.w = 0.0f;
 }
 
+void ConstantBuffer_DX11::SetSpecularPower(float _specPower)
+{
+	m_constBufferData.m_specularPower = _specPower;
+}
+
+void ConstantBuffer_DX11::SetMetallic(float _metallic)
+{
+	m_constBufferData.m_metallic = _metallic;
+}
+
+void ConstantBuffer_DX11::SetEnviromentMapFlag(bool _isEnabled)
+{
+	m_constBufferData.m_showEnviromentMap = _isEnabled;
+}
+
 #endif // BUILD_DX_11

@@ -1,4 +1,5 @@
 Texture2D txTexture : register(t0);
+TextureCube txEnviromentMap : register(t2);
 SamplerState txTextureSampler : register(s0);
 
 static float4 MaterialDiff = float4(0.9, 0.7, 1.0, 1.0);
@@ -21,6 +22,14 @@ cbuffer ConstantBuffer : register(b0)
 	float4 Color;
 	// 16 Bytes
 	float4 CameraPosition;
+	// 16 Bytes
+	float SpecularPower;
+	float Metallic;
+	bool ShowEnviromentMap;
+	bool padding1;
+	bool padding2;
+	bool padding3;
+	float padding4;
 }
 
 //--------------------------------------------------------------------------------------
@@ -38,16 +47,28 @@ struct VS_OUTPUT
 //--------------------------------------------------------------------------------------
 float4 main(VS_OUTPUT input) : SV_TARGET
 {
-	float4 textureColor = float4(txTexture.Sample(txTextureSampler, input.tex).xyz, 1.0f);
+	float4 finalColor = float4(txTexture.Sample(txTextureSampler, input.tex).xyz, 1.0f);
+	float3 normal = normalize(input.norm);
+
+	if (ShowEnviromentMap)
+	{
+		// Sample the environment map
+		float3 V = normalize(CameraPosition.xyz - input.posW);
+		float3 viewDir = reflect(-V, normal);
+		float4 enviroment = txEnviromentMap.Sample(txTextureSampler, viewDir);
+
+		// Apply the metallic properties to the reflection of the environment
+		enviroment = enviroment * Metallic;
+		finalColor += enviroment;
+	}
 
 	float3 lightDir = normalize(LightPos - input.posW.xyz);
-	float3 normal = normalize(input.norm);
 	float diff = max(0.0, dot(lightDir, normal));
 
 	float4 lightResult = (diff * MaterialDiff) * (LightColor * LightFactor);
 
-	lightResult += textureColor;
-	lightResult = saturate(lightResult);
+	finalColor += lightResult;
+	finalColor = saturate(finalColor);
 
-	return lightResult;
+	return finalColor;
 }

@@ -10,7 +10,10 @@ public:
 	Texture_DX11(const std::string _filePath);
 	~Texture_DX11();
 
-	void SetTextureForDrawCall() override;
+	void SetTextureAsDiffuseForDrawCall() override;
+	void SetTextureAsNormalForDrawCall() override;
+	void SetTextureAsEnviromentForDrawCall() override;
+	
 	void LoadTexture(const std::string _filePath) override;
 
 private:

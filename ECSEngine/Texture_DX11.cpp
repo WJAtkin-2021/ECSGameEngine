@@ -43,10 +43,22 @@ void Texture_DX11::Init()
 	device.Reset();
 }
 
-void Texture_DX11::SetTextureForDrawCall()
+void Texture_DX11::SetTextureAsDiffuseForDrawCall()
 {
 	m_immediateContext->PSSetSamplers(0, 1, m_samplerState.GetAddressOf());
 	m_immediateContext->PSSetShaderResources(0, 1, m_textureRV.GetAddressOf());
+}
+
+void Texture_DX11::SetTextureAsNormalForDrawCall()
+{
+	m_immediateContext->PSSetSamplers(0, 1, m_samplerState.GetAddressOf());
+	m_immediateContext->PSSetShaderResources(1, 1, m_textureRV.GetAddressOf());
+}
+
+void Texture_DX11::SetTextureAsEnviromentForDrawCall()
+{
+	m_immediateContext->PSSetSamplers(0, 1, m_samplerState.GetAddressOf());
+	m_immediateContext->PSSetShaderResources(2, 1, m_textureRV.GetAddressOf());
 }
 
 void Texture_DX11::LoadTexture(const std::string _filePath)

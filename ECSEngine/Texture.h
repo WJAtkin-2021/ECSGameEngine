@@ -13,7 +13,9 @@ public:
 
 	std::string GetTextureFilePath() { return m_filePath; }
 
-	virtual void SetTextureForDrawCall() = 0;
+	virtual void SetTextureAsDiffuseForDrawCall() = 0;
+	virtual void SetTextureAsNormalForDrawCall() = 0;
+	virtual void SetTextureAsEnviromentForDrawCall() = 0;
 	virtual void LoadTexture(const std::string _filePath) = 0;
 
 protected:

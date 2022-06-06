@@ -53,6 +53,9 @@ void Shader_DX11::LoadShader(ShaderType _shaderType)
 	case ShaderType::PixelSkyBox_HLSL:
 		CompilePixelShaderFromFile(L"Resources\\Shaders\\SkyBoxPixelShader.hlsl", "ps_5_0");
 		break;
+	case ShaderType::PixelBumpMapped_HLSL:
+		CompilePixelShaderFromFile(L"Resources\\Shaders\\BumpMappedPixelShader.hlsl", "ps_5_0");
+		break;
 	default:
 		throw std::invalid_argument("Shader type not implemented on LoadShader");
 		break;
