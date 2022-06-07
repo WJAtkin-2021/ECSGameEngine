@@ -29,6 +29,8 @@ public:
 
 	bool DrawImGuiInterface();
 
+	void Update();
+
 	// Return the first instance of this component
 	template<typename T>
 	T* GetComponent() const

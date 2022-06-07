@@ -15,6 +15,15 @@ Entity::~Entity()
 	}
 }
 
+void Entity::Update()
+{
+	// Call update on all the components
+	for (size_t i = 0; i < m_components.size(); i++)
+	{
+		m_components[i]->Update();
+	}
+}
+
 bool Entity::DrawImGuiInterface()
 {
 	// Draw the entities interface

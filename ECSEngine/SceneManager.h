@@ -27,7 +27,6 @@ public:
 	static void SaveScene() { m_instance->SaveSceneToFile(m_instance->m_workingFilePath); }
 	static void SaveSceneAs(const std::string& _filePath) { m_instance->SaveSceneToFile(_filePath); }
 	static void OpenScene(const std::string& _filePath) { m_instance->OpenSceneFromFile(_filePath); }
-	static void OpenDefaultScene() { m_instance->OpenSceneFromFile("Resources\\DefaultMap.xml"); m_instance->m_workingFilePath = ""; }
 	static void NewScene();
 	static bool HasValidSavePath();
 

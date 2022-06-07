@@ -26,16 +26,7 @@ void Sandbox::Init()
 	std::shared_ptr<ApplicationUI> sandboxUI = std::shared_ptr<ApplicationUI>(new SandboxUI());
 	UI::SetApplicationUI(sandboxUI);
 
-	// Set the camera
-	m_camera.GetTransform().SetPosition(Vector3D(0.0f, 1.0f, -10.0f));
-
-	// Create the test entity
-	Entity* testCube1 = SceneManager::CreateEntity();
-	testCube1->GetComponent<Transform>()->SetPosition(Vector3D(0.0f, 0.0f, 0.0f));
-	testCube1->SetName("Test Cube");
-	RenderComponent* rc = testCube1->AddComponent<RenderComponent>();
-	rc->SetMesh(ResourceManager::GetMesh(PrimitiveTypes::Cube));
-	MaterialComponent* mc = testCube1->AddComponent<MaterialComponent>();
+	SceneManager::OpenScene(m_defaultSceneFilepath);
 }
 
 void Sandbox::Update()

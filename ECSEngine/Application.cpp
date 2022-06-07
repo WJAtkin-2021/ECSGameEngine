@@ -58,6 +58,13 @@ void Application::Init()
 
 void Application::Update()
 {
+	// Update all entities
+	std::vector<Entity*> entities = m_sceneManager.GetEntites();
+	for (size_t i = 0; i < entities.size(); i++)
+	{
+		entities[i]->Update();
+	}
+
 	// Draw the scene
 	m_renderer->DrawScene();
 

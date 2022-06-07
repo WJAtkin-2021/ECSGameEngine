@@ -3,12 +3,12 @@
 
 <Scene>
 <Camera>
-<Position> 0.633839 0.332371 -3.04219 </Position>
-<Rotation> 7 -23.5 0 </Rotation>
+<Position> 1.2652 1.29512 -2.40758 </Position>
+<Rotation> 22.2 -27.4 0 </Rotation>
 </Camera>
-<AmbientLighting> 0.5 0.5 0.5 </AmbientLighting>
+<AmbientLighting> 0.372549 0.372549 0.372549 </AmbientLighting>
 <Entity>
-<EntityName> Test Cube </EntityName>
+<EntityName> Cube </EntityName>
 <EntityColor> 1 0 1 </EntityColor>
 <Components>
 <ClassName> Transform </ClassName>
@@ -17,7 +17,7 @@
 <Scale> 1 1 1 </Scale>
 </ClassName>
 <ClassName> RenderComponent </ClassName>
-<PrimativeType> 2 </PrimativeType>
+<PrimativeType> 1 </PrimativeType>
 <MeshFilePath> NONE </MeshFilePath>
 </ClassName>
 <ClassName> MaterialComponent </ClassName>
@@ -30,18 +30,24 @@
 </Components>
 </Entity>
 <Entity>
-<EntityName> New Entity </EntityName>
-<EntityColor> 0.287237 0.495098 0.274246 </EntityColor>
+<EntityName> SkyLight </EntityName>
+<EntityColor> 1 0 1 </EntityColor>
 <Components>
 <ClassName> Transform </ClassName>
-<Position> -3.07 0 0 </Position>
+<Position> 0 0 0 </Position>
 <Rotation> 0 0 0 </Rotation>
 <Scale> 1 1 1 </Scale>
 </ClassName>
-<ClassName> RenderComponent </ClassName>
-<PrimativeType> 1 </PrimativeType>
-<MeshFilePath> NONE </MeshFilePath>
-</ClassName>
+<LightComponent>
+<ClassName> LightComponent </ClassName>
+<Color> 0.897059 0.865677 0.725562 </Color>
+<Direction> 0 -1 0 </Direction>
+<Type> 0 </Type>
+<Intensity> 0.628571 </Intensity>
+<C1> 1.6 </C1>
+<C2> 0.8 </C2>
+<Enabled> 1 </Enabled>
+</LightComponent>
 </Components>
 </Entity>
 </Scene>

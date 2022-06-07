@@ -15,4 +15,6 @@ private:
 	void ProcessKeyInput();
 
 	float m_camSensitivity = 0.1f;
+
+	std::string m_defaultSceneFilepath = "Resources\\Scenes\\DefaultScene.xml";
 };
