@@ -269,7 +269,4 @@ void SceneManager::OpenSceneFromFile(const std::string& _filePath)
 			}
 		}
 	}
-
-	// TODO: Set the window caption
-	//Engine::GetWindow()->SetWindowCaption(_filePath);
 }

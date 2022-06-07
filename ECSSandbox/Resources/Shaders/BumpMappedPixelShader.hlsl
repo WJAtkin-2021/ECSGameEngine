@@ -5,11 +5,6 @@ Texture2D txNormMap : register(t1);
 TextureCube txEnviromentMap : register(t2);
 SamplerState txTextureSampler : register(s0);
 
-static float4 MaterialDiff = float4(0.9, 0.7, 1.0, 1.0);
-static float4 LightColor = float4(245.0 / 255.0, 243.0 / 255.0, 184.0 / 255.0, 1.0);
-static float3 LightPos = float3(0.0, 1000.0, 0.0);
-static float LightFactor = 0.25f;
-
 //--------------------------------------------------------------------------------------
 struct VS_OUTPUT
 {
@@ -53,13 +48,9 @@ float4 main(VS_OUTPUT input) : SV_TARGET
 	}
 
 	// Run the lighting for this pixel
-	float3 lightDir = normalize(LightPos - input.posW.xyz);
-	float diff = max(0.0, dot(lightDir, normal));
-	float4 lightResult = (diff * MaterialDiff) * (LightColor * LightFactor);
+	LightingCalcResult light = CalculateLighting(input.posW, normalize(normal), CameraPosition);
 
-	// Get the final color
-	finalColor += lightResult;
-	finalColor = saturate(finalColor);
+	finalColor = (light.Diffuse + light.Specular + AmbientLight) * finalColor;
 
 	return finalColor;
 }

@@ -47,7 +47,7 @@ Window_Win::Window_Win(int _screenWidth, int _screenHeight, HINSTANCE _hInstance
 	// Check if the window was created
 	if (m_hwnd == NULL)
 	{
-		// TODO: Throw error message
+		throw std::runtime_error("Cannot create windows window");
 	}
 	else
 	{
