@@ -8,6 +8,8 @@ public:
 	SandboxUI();
 	~SandboxUI();
 
+	void OnSceneChanged() override;
+
 private:
 
 	void DrawUI() override;

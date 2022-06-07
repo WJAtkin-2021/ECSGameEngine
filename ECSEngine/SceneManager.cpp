@@ -3,6 +3,7 @@
 #include "ResourceManager.h"
 #include "Entity.h"
 #include "Camera.h"
+#include "UI.h"
 
 SceneManager* SceneManager::m_instance = nullptr;
 
@@ -120,9 +121,6 @@ void SceneManager::NewScene()
 {
 	m_instance->RemoveAllEntities();
 	m_instance->m_workingFilePath = "";
-
-	// TODO: Set window captions
-	//Engine::GetWindow()->SetWindowCaption("*New Scene");
 }
 
 void SceneManager::RemoveAllEntities()
@@ -133,8 +131,9 @@ void SceneManager::RemoveAllEntities()
 	}
 	m_entities.resize(0);
 	m_currentFreeId = 0;
-	// TODO: Reset inspector
-	//Engine::GetUI()->Reset();
+
+	// Reset application UI
+	UI::GetIU()->GetApplicationUI()->OnSceneChanged();
 }
 
 void SceneManager::SaveSceneToFile(const std::string& _filePath)
@@ -185,9 +184,6 @@ void SceneManager::SaveSceneToFile(const std::string& _filePath)
 	// Close the file
 	saveFile.close();
 	m_workingFilePath = _filePath;
-
-	// TODO: Set the window caption
-	//Engine::GetWindow()->SetWindowCaption(_filePath);
 }
 
 void SceneManager::OpenSceneFromFile(const std::string& _filePath)

@@ -36,7 +36,7 @@ bool RenderComponent::DrawImGuiInterface()
 	bool keepThis = true;
 	if (ImGui::CollapsingHeader(headerTitle.c_str(), &keepThis, ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		const char* items[] = { "None", "Cube" };
+		const char* items[] = { "None", "Cube", "Sphere"};
 		int arraySize = (sizeof(items) / sizeof(*items));
 		int itemIndex = static_cast<int>(m_meshPrimative);
 		if (ImGui::BeginListBox("Primitive Type"))
@@ -47,11 +47,11 @@ bool RenderComponent::DrawImGuiInterface()
 				if (ImGui::Selectable(items[i], isSelected))
 				{
 					itemIndex = i;
-					if (itemIndex == 1)
+					if (itemIndex != 0)
 					{
-						SetMesh(ResourceManager::GetMesh(PrimitiveTypes::Cube));
+						SetMesh(ResourceManager::GetMesh(static_cast<PrimitiveTypes>(i)));
 					}
-					else if (itemIndex == 0)
+					else
 					{
 						RemoveMesh();
 					}

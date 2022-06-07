@@ -8,12 +8,18 @@ Application::Application(Window* _window, int _screenWidth, int _screenHeight)
 	m_screenHeight = _screenHeight;
 	m_window = _window;
 
-	// Setup the renderer
-	// TODO: Make use of pre-processor commands for determining the correct platform
-	Renderer_DX11* renderer = new Renderer_DX11();
 	Window_Win* window = dynamic_cast<Window_Win*>(_window);
+
+	// Setup the renderer
+	// Makes use of pre-processor commands for determining the correct platform
+#ifdef BUILD_DX_11
+	Renderer_DX11* renderer = new Renderer_DX11();
 	renderer->SetWindowsHandle(window->GetHandle());
 	m_renderer = dynamic_cast<Renderer*>(renderer);
+#else
+	throw std::runtime_error("Cannot create renderer for current platform");
+#endif
+
 	m_renderer->InitGraphicsAPI(m_screenWidth, m_screenHeight);
 
 	// Pass the application class to the window class

@@ -10,4 +10,5 @@ protected:
 public:
 
 	virtual void DrawUI() = 0;
+	virtual void OnSceneChanged() = 0;
 };

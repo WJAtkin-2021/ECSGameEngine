@@ -14,6 +14,11 @@ SandboxUI::~SandboxUI()
 
 }
 
+void SandboxUI::OnSceneChanged()
+{
+    m_selectedEntity = nullptr;
+}
+
 void SandboxUI::DrawUI()
 {
 	DrawTopBar();
@@ -30,17 +35,17 @@ void SandboxUI::DrawTopBar()
     {
         if (ImGui::BeginMenu("File"))
         {
-            if (ImGui::MenuItem("New", "Ctrl+N"))
+            if (ImGui::MenuItem("New", ""))
             {
                 SceneManager::NewScene();
                 m_selectedEntity = nullptr;
             }
-            if (ImGui::MenuItem("Open", "Ctrl+O"))
+            if (ImGui::MenuItem("Open", ""))
             {
                 const std::string filepath = Window::GetWindowInstance()->GetOpenFile();
                 SceneManager::OpenScene(filepath);
             }
-            if (ImGui::MenuItem("Save", "Ctrl+S"))
+            if (ImGui::MenuItem("Save", ""))
             {
                 if (SceneManager::HasValidSavePath())
                 {
@@ -125,7 +130,6 @@ void SandboxUI::DrawInspector()
         ImGui::Text("No Entity Selected");
     }
 
-    // TODO: Show info for selected entity
     ImGui::EndChild();
     ImGui::End();
 }

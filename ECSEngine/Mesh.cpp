@@ -59,10 +59,10 @@ void Mesh::LoadPrimativeMesh(const PrimitiveTypes _primitiveType, std::vector<Ve
 	switch (_primitiveType)
 	{
 	case PrimitiveTypes::Cube:
-		GeneratePrimativeCube(_primitiveType, _verticies, _indicies);
+		GeneratePrimativeCube(_verticies, _indicies);
 		break;
 	case PrimitiveTypes::Sphere:
-
+		GeneratePrimativeSphere(_verticies, _indicies);
 		break;
 	default:
 		throw std::invalid_argument("Primitive type unhanded");
@@ -79,7 +79,7 @@ int Mesh::GetNumberOfIndicies()
 	return m_GPUBuffers->GetNumberOfIndicies();
 }
 
-void Mesh::GeneratePrimativeCube(const PrimitiveTypes _primitiveType, std::vector<Vertex>& _verticies, std::vector<unsigned int>& _indicies)
+void Mesh::GeneratePrimativeCube(std::vector<Vertex>& _verticies, std::vector<unsigned int>& _indicies)
 {
 	Vertex vertices[24];
 
@@ -139,6 +139,96 @@ void Mesh::GeneratePrimativeCube(const PrimitiveTypes _primitiveType, std::vecto
 
 	_indicies.push_back(20u); _indicies.push_back(21u); _indicies.push_back(22u); // Triangle 11 +x
 	_indicies.push_back(20u); _indicies.push_back(22u); _indicies.push_back(23u); // Triangle 12
+}
+
+void Mesh::GeneratePrimativeSphere(std::vector<Vertex>& _verticies, std::vector<unsigned int>& _indicies)
+{
+	// Number of sub divisions to use
+	const unsigned int subDivisions = 20;
+
+	// Radius
+	const float radius = 0.5f;
+
+	// firstly calculate the top and bottom vertices's
+	const Vertex topVertex(0.0f, +radius, 0.0f, 0.0f, +1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+	const Vertex bottomVertex(0.0f, -radius, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+
+	_verticies.push_back(topVertex);
+
+	const float phiStep = m_pi / subDivisions;
+	const float thetaStep = 2.0f * m_pi / subDivisions;
+
+	// Compute the vertices's for every ring
+	for (unsigned int i = 1; i <= subDivisions - 1; i++)
+	{
+		const float phi = i * phiStep;
+
+		// Compute the vertices's of the current ring
+		for (unsigned int j = 0; j <= subDivisions; j++)
+		{
+			const float theta = j * thetaStep;
+			Vertex vertex;
+
+			// Position
+			vertex.m_position.m_x = radius * sinf(phi) * cosf(theta);
+			vertex.m_position.m_y = radius * cosf(phi);
+			vertex.m_position.m_z = radius * sinf(phi) * sinf(theta);
+
+			// Tangent
+			vertex.m_tangent.m_x = -radius * sinf(phi) * sinf(theta);
+			vertex.m_tangent.m_y = 0.0f;
+			vertex.m_tangent.m_z = +radius * sinf(phi) * cosf(theta);
+
+			// Normalize the tangent
+			vertex.m_tangent = vertex.m_tangent.normalize();
+
+			// Calculate the normal
+			vertex.m_normal = vertex.m_position.normalize();
+
+			vertex.m_uv.m_x = theta / m_pi;
+			vertex.m_uv.m_y = phi / m_pi;
+
+			_verticies.push_back(vertex);
+		}
+	}
+
+	_verticies.push_back(bottomVertex);
+
+	// Calculate the indices's
+	// Add the bottom vertex first
+	for (unsigned int i = 1; i <= subDivisions; ++i)
+	{
+		_indicies.push_back(0);
+		_indicies.push_back(i + 1);
+		_indicies.push_back(i);
+	}
+
+	// Calculate the indices's for all the stacks
+	unsigned int baseIndex = 1;
+	unsigned int ringVertexCount = subDivisions + 1;
+	for (unsigned int i = 0; i < subDivisions - 2; ++i)
+	{
+		for (unsigned int j = 0; j < subDivisions; ++j)
+		{
+			_indicies.push_back(baseIndex + i * ringVertexCount + j);
+			_indicies.push_back(baseIndex + i * ringVertexCount + j + 1);
+			_indicies.push_back(baseIndex + (i + 1) * ringVertexCount + j);
+
+			_indicies.push_back(baseIndex + (i + 1) * ringVertexCount + j);
+			_indicies.push_back(baseIndex + i * ringVertexCount + j + 1);
+			_indicies.push_back(baseIndex + (i + 1) * ringVertexCount + j + 1);
+		}
+	}
+
+	// Add the top separately
+	const unsigned int southPoleIndex = static_cast<unsigned int>(_verticies.size() - 1);
+	baseIndex = southPoleIndex - ringVertexCount;
+	for (unsigned int i = 0; i < subDivisions; ++i)
+	{
+		_indicies.push_back(southPoleIndex);
+		_indicies.push_back(baseIndex + i);
+		_indicies.push_back(baseIndex + i + 1);
+	}
 }
 
 void Mesh::LoadMeshWithAssImp(const std::string _filePath, std::vector<Vertex>& _verticies, std::vector<unsigned int>& _indicies)

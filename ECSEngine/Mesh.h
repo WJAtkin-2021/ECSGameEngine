@@ -35,6 +35,10 @@ private:
 	// Helper functions
 	void CreateGPUBuffer();
 	void LoadPrimativeMesh(const PrimitiveTypes _primitiveType, std::vector<Vertex>& _verticies, std::vector<unsigned int>& _indicies);
-	void GeneratePrimativeCube(const PrimitiveTypes _primitiveType, std::vector<Vertex>& _verticies, std::vector<unsigned int>& _indicies);
+	void GeneratePrimativeCube(std::vector<Vertex>& _verticies, std::vector<unsigned int>& _indicies);
+	void GeneratePrimativeSphere(std::vector<Vertex>& _verticies, std::vector<unsigned int>& _indicies);
 	void LoadMeshWithAssImp(const std::string _filePath, std::vector<Vertex>& _verticies, std::vector<unsigned int>& _indicies);
+
+	// Pi
+	static constexpr float m_pi = 3.14159265359f;
 };
