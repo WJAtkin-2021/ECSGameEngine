@@ -24,9 +24,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <FxCompile Include="Resources\Shaders\FallbackPixelShader.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
@@ -51,5 +48,8 @@
     <FxCompile Include="Resources\Shaders\ShaderData.fx">
       <Filter>Shaders</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
